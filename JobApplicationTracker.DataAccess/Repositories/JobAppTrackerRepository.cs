@@ -20,7 +20,7 @@ namespace JobApplicationTracker.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task<T> AddAysnc(T entity)
+        public async Task<T> AddAsync(T entity)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace JobApplicationTracker.DataAccess.Repositories
             }
         }
 
-        public async Task<T> DeleteAysnc(int id)
+        public async Task<T> DeleteAsync(int id)
         {
             try
             {
