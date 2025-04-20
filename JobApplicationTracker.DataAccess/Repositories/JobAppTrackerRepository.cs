@@ -72,22 +72,24 @@ namespace JobApplicationTracker.DataAccess.Repositories
 
         public async Task<T> GetByIdAsync(int id)
         {
-            try
-            {
-                var entity = await _context.Set<T>().FindAsync(id);
-                if (entity != null)
-                {
-                    return entity;
-                }
-                else
-                {
-                    throw new Exception($"{typeof(T).Name} with id {id} not found");
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error retrieving {typeof(T).Name} with id {id}", ex);
-            }
+
+            return await _context.Set<T>().FindAsync(id);
+            //try
+            //{
+            //    var entity = await _context.Set<T>().FindAsync(id);
+            //    if (entity != null)
+            //    {
+            //        return entity;
+            //    }
+            //    else
+            //    {
+            //        throw new Exception($"{typeof(T).Name} with id {id} not found");
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw new Exception($"Error retrieving {typeof(T).Name} with id {id}", ex);
+            //}
         }
 
         public async Task<T> UpdateAsync(T entity)

@@ -20,7 +20,8 @@ namespace JobAppTracker.DataAccess.Tests
         public void Initialize()
         {
             var options = new DbContextOptionsBuilder<JobAppDbContext>()
-                .UseInMemoryDatabase(databaseName: "JobAppTrackerTestDb")
+                //.UseInMemoryDatabase(databaseName: "JobAppTrackerTestDb")
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
             _context = new JobAppDbContext(options);
             _repository = new JobAppTrackerRepository<T>(_context);
