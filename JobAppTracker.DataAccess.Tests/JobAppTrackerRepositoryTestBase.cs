@@ -20,7 +20,6 @@ namespace JobAppTracker.DataAccess.Tests
         public void Initialize()
         {
             var options = new DbContextOptionsBuilder<JobAppDbContext>()
-                //.UseInMemoryDatabase(databaseName: "JobAppTrackerTestDb")
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
             _context = new JobAppDbContext(options);
@@ -52,8 +51,46 @@ namespace JobAppTracker.DataAccess.Tests
         }
 
         [TestMethod]
+        public async Task Add_Entity_Throws_Exception()
+        {
+            var ex = await Assert.ThrowsExceptionAsync<Exception>(async () =>
+            {
+                
+                await _repository.AddAsync(null);
+                
+            });
 
-        public async Task Get_Entity()
+            Assert.IsTrue(ex.Message.Contains("Error adding"));
+        }
+
+        [TestMethod]
+
+        public async Task Get_All_Entities()
+        {
+            var entity = AddAnEntity();
+            await _repository.AddAsync(entity);
+            await _context.SaveChangesAsync();
+            var all = await _repository.GetAllAsync();
+            Assert.IsNotNull(all);
+        }
+
+        [TestMethod]
+
+        public async Task Get_All_Entities_Throws_Exception()
+        {
+            var noRepo = new JobAppTrackerRepository<object>(_context);
+            var ex = await Assert.ThrowsExceptionAsync<Exception>(async () =>
+            {
+
+                await noRepo.GetAllAsync();
+            });
+            Assert.IsTrue(ex.Message.Contains("Error retrieving all"));
+        }
+
+
+        [TestMethod]
+
+        public async Task Get_Entity_By_Id()
         {
             var entity = AddAnEntity();
             await _repository.AddAsync(entity);
@@ -61,6 +98,18 @@ namespace JobAppTracker.DataAccess.Tests
 
             var getEntity = await _repository.GetByIdAsync((entity as dynamic).Id);
             Assert.IsNotNull(getEntity);
+        }
+
+        [TestMethod]
+
+        public async Task Get_Entity_By_Id_Throws_Exception()
+        {
+            var ex = await Assert.ThrowsExceptionAsync<Exception>(async () =>
+            {
+
+                await _repository.GetByIdAsync(0);
+            });
+            Assert.IsTrue(ex.Message.Contains("Error retrieving"));
         }
 
         [TestMethod]
@@ -81,6 +130,19 @@ namespace JobAppTracker.DataAccess.Tests
 
         [TestMethod]
 
+        public async Task Update_Entity_Throws_Exception()
+        {
+            var ex = await Assert.ThrowsExceptionAsync<Exception>(async () =>
+            {
+                
+                await _repository.UpdateAsync(null);
+            });
+
+            Assert.IsTrue(ex.Message.Contains("Error updating"));
+        }
+
+        [TestMethod]
+
         public async Task Delete_Entity()
         {
             var entity = AddAnEntity();
@@ -89,8 +151,23 @@ namespace JobAppTracker.DataAccess.Tests
             
             await _repository.DeleteAsync((entity as dynamic).Id);
             await _context.SaveChangesAsync();
-            var deletedEntity = await _repository.GetByIdAsync((entity as dynamic).Id);
+            
+            var deletedEntity = await _context.Set<T>().FindAsync((entity as dynamic).Id);
             Assert.IsNull(deletedEntity);
         }
+
+
+        [TestMethod]
+
+        public async Task Delete_Null_Entity_Throws_Exception()
+        {
+            var ex = await Assert.ThrowsExceptionAsync<Exception>(async () =>
+            {
+                await _repository.DeleteAsync(0);
+            });
+
+            Assert.IsTrue(ex.Message.Contains("not found"));
+        }
+        
     }
 }

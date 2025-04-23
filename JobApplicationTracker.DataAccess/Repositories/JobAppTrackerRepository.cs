@@ -37,24 +37,16 @@ namespace JobApplicationTracker.DataAccess.Repositories
 
         public async Task<T> DeleteAsync(int id)
         {
-            try
+            var entity = await _context.Set<T>().FindAsync(id);
+
+            if (entity == null)
             {
-                var entity = await _context.Set<T>().FindAsync(id);
-                if (entity != null)
-                {
-                    _context.Set<T>().Remove(entity);
-                    _context.SaveChanges();
-                    return entity;
-                }
-                else
-                {
-                    throw new Exception($"{typeof(T).Name} with id {id} not found");
-                }
+                throw new Exception($"{typeof(T).Name} with id {id} not found");
             }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error deleting {typeof(T).Name}", ex);
-            }
+
+            _context.Set<T>().Remove(entity);
+            await _context.SaveChangesAsync();
+            return entity;
         }
 
         public async Task<IEnumerable<T>> GetAllAsync()
@@ -62,7 +54,12 @@ namespace JobApplicationTracker.DataAccess.Repositories
             try
             {
                 var entities = await _context.Set<T>().ToListAsync();
-                return entities;
+
+                if (entities == null)
+                {
+                    throw new InvalidOperationException($"No {typeof(T).Name}s found");
+                }
+                    return entities;
             }
             catch (Exception ex)
             {
@@ -73,30 +70,34 @@ namespace JobApplicationTracker.DataAccess.Repositories
         public async Task<T> GetByIdAsync(int id)
         {
 
-            return await _context.Set<T>().FindAsync(id);
-            //try
-            //{
-            //    var entity = await _context.Set<T>().FindAsync(id);
-            //    if (entity != null)
-            //    {
-            //        return entity;
-            //    }
-            //    else
-            //    {
-            //        throw new Exception($"{typeof(T).Name} with id {id} not found");
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw new Exception($"Error retrieving {typeof(T).Name} with id {id}", ex);
-            //}
+           
+
+            try
+            {
+                var entity = await _context.Set<T>().FindAsync(id);
+                if (entity == null)
+                {
+                    throw new Exception(($"{typeof(T).Name} with id {id} not found"));
+                }
+                _context.Set<T>().Remove(entity);
+                await _context.SaveChangesAsync();
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error retrieving {typeof(T).Name} with id {id}", ex);
+            }
         }
 
         public async Task<T> UpdateAsync(T entity)
         {
             try
             {
-                 _context.Set<T>().Update(entity);
+                if (entity == null)
+                {
+                    throw new ArgumentNullException(nameof(entity));
+                }
+                _context.Set<T>().Update(entity);
                 await _context.SaveChangesAsync();
                 return entity;
                
