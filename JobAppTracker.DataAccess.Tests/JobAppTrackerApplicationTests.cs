@@ -14,7 +14,9 @@ public class JobAppTrackerApplicationTests : JobAppTrackerRepositoryTestBase<App
             JobDescription = "Test JobDescription",
             ApplicationDate = DateTime.Now,
             Status = "Applied",
-            CompanyId = 1
+            CompanyId = 1,
+            ResumePath = "C:\\Resumes\\TestResume.pdf",
+            CoverLetterPath = "C:\\CoverLetters\\CoverLetter.pdf"
         };
     }
 

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobApplicationTracker.DataA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobAppTracker.DataAccess.Tests", "JobAppTracker.DataAccess.Tests\JobAppTracker.DataAccess.Tests.csproj", "{AE5FEBCA-52BC-4258-B628-EEC4FBD442B9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobAppTrackerApiService", "JobAppTrackerApiService\JobAppTrackerApiService.csproj", "{0B3CB6E3-2EFE-4CE8-B17E-546538ACD9B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{AE5FEBCA-52BC-4258-B628-EEC4FBD442B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE5FEBCA-52BC-4258-B628-EEC4FBD442B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE5FEBCA-52BC-4258-B628-EEC4FBD442B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B3CB6E3-2EFE-4CE8-B17E-546538ACD9B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B3CB6E3-2EFE-4CE8-B17E-546538ACD9B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B3CB6E3-2EFE-4CE8-B17E-546538ACD9B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B3CB6E3-2EFE-4CE8-B17E-546538ACD9B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
