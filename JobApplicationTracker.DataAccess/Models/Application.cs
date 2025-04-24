@@ -27,6 +27,9 @@ namespace JobApplicationTracker.DataAccess.Models
 
         public Company Company { get; set; }
 
+        public string? ResumePath { get; set; }
+        public string? CoverLetterPath { get; set; }
+
         public List<CheckedOnApp> CheckedOnApps { get; set; } = new();
         public List<Interviews> Interviews { get; set; } = new();
         public List<InterviewPrep> InterviewPreps { get; set; } = new();
