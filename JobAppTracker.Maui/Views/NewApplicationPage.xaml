@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="JobAppTracker.Maui.Views.NewApplicationPage"
+             Title="New Application">
+    <VerticalStackLayout>
+        <Entry x:Name="JobTitleEntry" Placeholder="Job Title" TextChanged="OnFieldChanged" />
+        <Entry x:Name="JobDescriptionEntry" Placeholder="Job Description" />
+        <Entry x:Name="StatusEntry" Placeholder="Status (Applied, Interviewed, Rejected" />
+        <DatePicker x:Name="ApplicationDatePicker" DateSelected="OnFieldChanged" />
+
+        <Button Text="Save"
+                x:Name="SaveButton"
+                IsEnabled="False"
+                Clicked="OnSaveButtonClicked" />
+    </VerticalStackLayout>
+</ContentPage>
