@@ -4,15 +4,21 @@
              xmlns:viewmodels= "clr-namespace:JobAppTracker.Maui.ViewModels"
              x:Class="JobAppTracker.Maui.Views.ApplicationsPage"
              Title="Job Applications">
-    
 
-    <VerticalStackLayout Padding="10">
+    <ScrollView>
+        <VerticalStackLayout Padding="10">
         <ActivityIndicator IsRunning = "{Binding IsBusy}" 
                            IsVisible="{Binding IsBusy}"
                            Color ="LightGray" 
                            HeightRequest="50"/>
+        <SearchBar Placeholder= "Search by Job Title or Company Name"
+                   Text= "{Binding SearchFor}"
+                   SearchCommand="{Binding SearchCommand}"
+                   CancelButtonColor="LightGray" />
 
-        <CollectionView ItemsSource="{Binding Applications}">
+        <CollectionView ItemsSource = "{Binding Applications}"
+                        SelectionMode ="Single"
+                        SelectionChanged ="OnApplicationSelected">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame BorderColor="LightGray" Padding="10" Margin="5">
@@ -27,15 +33,13 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <Button Text="Reload"
-                Command="{Binding LoadApplicationsCommand}"
-                Margin="10"
-                HorizontalOptions="Center" />
+        
         <Button Text="Add New Application"
                 Clicked="OnAddApplicationButtonClicked"
                 Margin="10"
                 HorizontalOptions="Center" />
-    </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
 
 <!--<Label 

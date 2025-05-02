@@ -28,7 +28,10 @@ namespace JobAppTracker.Maui
             //Application
             builder.Services.AddSingleton<LocalApplicationStorageService>();
             builder.Services.AddSingleton<ApplicationViewModel>();
+            builder.Services.AddTransient<EditApplicationsViewModel>();
+            builder.Services.AddTransient<EditApplicationsPage>();
             builder.Services.AddSingleton<ApplicationsPage>();
+
             builder.Services.AddSingleton<MainPage>();
             //CheckedOnApp
 

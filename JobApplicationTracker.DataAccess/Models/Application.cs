@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace JobApplicationTracker.DataAccess.Models
 {
@@ -23,6 +24,7 @@ namespace JobApplicationTracker.DataAccess.Models
         //keep track of applied, interviewed, offered, rejected
 
         [ForeignKey("Company")]
+        [JsonIgnore]
         public int CompanyId { get; set; }
 
         public Company Company { get; set; }

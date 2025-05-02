@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="JobAppTracker.Maui.Views.EditApplicationsPage"
+             Title="Edit Application">
+    <ScrollView>
+        <VerticalStackLayout>
+            <Entry x:Name="JobTitleEntry" Placeholder="Job Title" Text="{Binding Application.JobTitle}" />
+            <Entry x:Name="JobDescriptionEntry" Placeholder="Job Description" Text="{Binding Application.JobDescription}" />
+            <Entry x:Name="StatusEntry" Placeholder="Status (Applied, Interviewed, Rejected" Text="{Binding Application.Status}" />
+            <DatePicker Date="{Binding Application.ApplicationDate}" />
+
+            <Button Text="Save"
+            Command="{Binding SaveCommand}"
+            HorizontalOptions="Center"
+            Margin="15" />
+
+            <Button Text="Delete"
+                    TextColor="Red"
+                    Command="{Binding DeleteCommand}"
+                    HorizontalOptions="Center"
+                    Margin="15" />
+        </VerticalStackLayout>
+    </ScrollView>
+    
+</ContentPage>

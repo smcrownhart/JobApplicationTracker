@@ -1,4 +1,6 @@
 using JobAppTracker.Maui.ViewModels;
+using System.Text.Json;
+using AppModel = JobApplicationTracker.DataAccess.Models.Application;
 
 namespace JobAppTracker.Maui.Views;
 
@@ -11,9 +13,31 @@ public partial class ApplicationsPage : ContentPage
 
 	}
 
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        if (BindingContext is ApplicationViewModel viewModel)
+        {
+            await viewModel.LoadApplicationsAsync();
+        }
+    }
+
     private async void OnAddApplicationButtonClicked(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync(nameof(NewApplicationPage));
     }
+
+	private async void OnApplicationSelected(object sender, SelectionChangedEventArgs e)
+    {
+        if (e.CurrentSelection.FirstOrDefault() is AppModel selectedApplication)
+        {
+            ((CollectionView)sender).SelectedItem = null;
+            Console.WriteLine($"Selected: {selectedApplication.JobTitle}");
+            var json = JsonSerializer.Serialize(selectedApplication);
+            await Shell.Current.GoToAsync($"{nameof(EditApplicationsPage)}?appJson={Uri.EscapeDataString(json)}");
+        }
+    }
+
+    
 
 }
