@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http.Json;
 using JobApplicationTracker.DataAccess.Models;
+using System.Net.Http;
+using Microsoft.Extensions.Http;
 using Application = JobApplicationTracker.DataAccess.Models.Application;
 
 namespace JobAppTracker.Maui.Services

@@ -36,7 +36,7 @@ namespace JobAppTracker.Maui.Services
             }
             catch (Exception ex)
             {
-                // Handle exceptions (e.g., file not found, JSON deserialization errors)
+                
                 Console.WriteLine($"Error loading applications: {ex.Message}");
                 return new List<Application>();
             }
@@ -51,7 +51,7 @@ namespace JobAppTracker.Maui.Services
             }
             catch (Exception ex)
             {
-                // Handle exceptions (e.g., file write errors)
+                
                 Console.WriteLine($"Error saving applications: {ex.Message}");
             }
         }
