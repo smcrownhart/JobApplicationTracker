@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="JobAppTracker.Maui.Views.NewCompanyPage"
+             Title="Add a New Company">
+    <ScrollView>
+        <VerticalStackLayout Padding="15" Spacing="15"
+                             HorizontalOptions="Center">
+            <Label Text="Add a New Company"/>
+
+            <Label Text="Company Name REQUIRED" />
+            <Entry Placeholder="Company Name" Text="{Binding Name}"/>
+
+            <Label Text="Company Website (optional, but if you applied online drop it here"/>
+            <Entry Placeholder="Company Website" Text="{Binding Website}"/>
+
+            <Button Text="Save"
+                    Command="{Binding SaveCommand}"
+                    IsEnabled="{Binding CanSave}"
+                    BackgroundColor="SlateBlue"
+                    TextColor="White"
+                    HorizontalOptions="Center"
+                    Margin="15" />
+
+        </VerticalStackLayout>
+     </ScrollView>
+
+</ContentPage>

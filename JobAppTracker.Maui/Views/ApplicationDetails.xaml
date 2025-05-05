@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="JobAppTracker.Maui.Views.ApplicationDetails"
+             Title="Application Details">
+    <ScrollView>
+        <VerticalStackLayout Padding="15" Spacing="10">
+            <Label Text="Application"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+            <Label Text="{Binding SelectedApplication.JobTitle}" 
+                   HorizontalOptions="Center"/>
+            <Label Text="{Binding SelectedApplication.JobDescription}" 
+                   HorizontalOptions="Center"/>
+            <Label Text="{Binding SelectedApplication.ApplicationDate, StringFormat='Checked on: {0:MM/dd/yyyy}'}" 
+                   HorizontalOptions="Center"/>
+            <Label Text="{Binding SelectedApplication.Status}" 
+                   HorizontalOptions="Center"/>
+
+            <Label Text="Company"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+            <Label Text="{Binding SelectedApplication.Company.Name}" 
+                   HorizontalOptions="Center"/>
+            <Label Text="{Binding SelectedApplication.Company.Website}" 
+                   HorizontalOptions="Center"/>
+
+            <Label Text="Company Contact"
+                     FontAttributes="Bold"
+                     HorizontalOptions="Center"/>
+            <Label Text="{Binding SelectedApplication.Company.ContactName}" 
+                   HorizontalOptions="Center"/>
+            <Label Text="{Binding SelectedApplication.Company.ContactEmail}" 
+                   HorizontalOptions="Center"/>
+            <Label Text="{Binding SelectedApplication.Company.ContactPhone}" 
+                   HorizontalOptions="Center"/>
+
+            <Label Text="Checked On History"
+                     FontAttributes="Bold"
+                     HorizontalOptions="Center"/>
+            <CollectionView ItemsSource="{Binding SelectedApplication.CheckOnApps}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Vertical">
+                            <Label Text="{Binding CheckOnDate, StringFormat='Checked on: {0:MM/dd/yyyy}'}" 
+                                   HorizontalOptions="Center"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Text ="Interviews"
+                     FontAttributes="Bold"
+                     HorizontalOptions="Center"/>
+            <Label Text="{Binding Interviews.InterviewDate, StringFormat='Interview on: {0:MM/dd/yyyy}'}" 
+                   HorizontalOptions="Center"/>
+            <Label Text="{Binding Interviews.InterviewTime, StringFormat='Interview Time: {0:hh:mm tt}'}" 
+                   HorizontalOptions="Center"/>
+            <Label Text="{Binding Interviews.Location}" 
+                   HorizontalOptions="Center"/>
+
+            <Button Text="Update"
+                    Command="{Binding UpdateCommand}"
+                    TextColor="RoyalBlue"
+                    HorizontalOptions="Center"
+                    Margin="10"/>
+
+            <Button Text="Delete"
+                    TextColor="Red"
+                    Command="{Binding DeleteCommand}"
+                    HorizontalOptions="Center"
+                    Margin="10" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+    
+</ContentPage>
