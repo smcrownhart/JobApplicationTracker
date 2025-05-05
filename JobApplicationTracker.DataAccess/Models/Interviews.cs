@@ -16,6 +16,9 @@ namespace JobApplicationTracker.DataAccess.Models
         [Required]
         public DateTime InterviewDate { get; set; }
 
+        [Required]
+        public DateTime InterviewTime { get; set; }
+
         public string Location { get; set; }
 
 

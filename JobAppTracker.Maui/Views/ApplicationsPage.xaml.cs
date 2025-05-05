@@ -34,7 +34,7 @@ public partial class ApplicationsPage : ContentPage
             ((CollectionView)sender).SelectedItem = null;
             Console.WriteLine($"Selected: {selectedApplication.JobTitle}");
             var json = JsonSerializer.Serialize(selectedApplication);
-            await Shell.Current.GoToAsync($"{nameof(EditApplicationsPage)}?appJson={Uri.EscapeDataString(json)}");
+            await Shell.Current.GoToAsync($"{nameof(ApplicationDetails)}?appJson={Uri.EscapeDataString(json)}");
         }
     }
 

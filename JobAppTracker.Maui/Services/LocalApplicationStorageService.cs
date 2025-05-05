@@ -13,6 +13,12 @@ namespace JobAppTracker.Maui.Services
 {
     public class LocalApplicationStorageService
     {
+        private readonly JsonSerializerOptions _jsonOptions = new()
+        {
+            PropertyNameCaseInsensitive = true,
+            WriteIndented = true,
+            ReferenceHandler = ReferenceHandler.Preserve
+        };
         private string FileName = "applications.json";
 
         private string GetFilePath()
@@ -28,7 +34,7 @@ namespace JobAppTracker.Maui.Services
                 if (File.Exists(filePath))
                 {
                     var jsnon = await File.ReadAllTextAsync(filePath);
-                    return JsonSerializer.Deserialize<List<Application>>(jsnon) ?? new List<Application>();
+                    return JsonSerializer.Deserialize<List<Application>>(jsnon, _jsonOptions) ?? new List<Application>();
                 }
 
                 return new List<Application>();
@@ -46,7 +52,7 @@ namespace JobAppTracker.Maui.Services
         {
             try
             {
-                var json = JsonSerializer.Serialize(applications, new JsonSerializerOptions { WriteIndented = true });
+                var json = JsonSerializer.Serialize(applications, _jsonOptions);
                 await File.WriteAllTextAsync(GetFilePath(), json);
             }
             catch (Exception ex)

@@ -68,7 +68,14 @@
 	  <ProjectReference Include="..\JobApplicationTracker.DataAccess\JobApplicationTracker.DataAccess.csproj" />
 	</ItemGroup>
 
-	
+	<ItemGroup>
+  		<MauiXaml Update="Views\ApplicationDetailsPage.xaml">
+    			<Generator>MSBuild:Compile</Generator>
+  		</MauiXaml>
+  		<MauiXaml Update="Views\NewCompanyPage.xaml">
+  		  <Generator>MSBuild:Compile</Generator>
+  		</MauiXaml>
+	</ItemGroup>	
 
 	
 

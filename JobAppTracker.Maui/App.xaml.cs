@@ -1,4 +1,6 @@
-﻿namespace JobAppTracker.Maui
+﻿
+
+namespace JobAppTracker.Maui
 {
     public partial class App : Application
     {

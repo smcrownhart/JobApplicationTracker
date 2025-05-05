@@ -27,6 +27,8 @@
             <Button
                 x:Name="Application"
                 Text="Applications" 
+                BackgroundColor="SlateGray"
+                TextColor="White"
                 SemanticProperties.Hint="View, Add, Edit, Delete Applications"
                 Clicked="OnViewApplicationsClicked"
                 HorizontalOptions="Center" />

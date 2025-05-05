@@ -24,8 +24,9 @@ namespace JobApplicationTracker.DataAccess.Models
         //keep track of applied, interviewed, offered, rejected
 
         [ForeignKey("Company")]
-        [JsonIgnore]
+       
         public int CompanyId { get; set; }
+
 
         public Company Company { get; set; }
 

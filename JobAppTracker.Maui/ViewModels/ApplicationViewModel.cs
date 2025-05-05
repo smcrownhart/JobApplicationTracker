@@ -9,7 +9,6 @@ using System.Runtime.CompilerServices;
 using JobApplicationTracker.DataAccess.Models;
 using JobAppTracker.Maui.Services;
 using Application = JobApplicationTracker.DataAccess.Models.Application;
-using SQLitePCL;
 
 namespace JobAppTracker.Maui.ViewModels
 {
