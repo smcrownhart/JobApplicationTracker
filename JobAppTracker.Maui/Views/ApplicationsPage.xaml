@@ -12,7 +12,9 @@
                            Color ="LightGray" 
                            HeightRequest="50"/>
 
-        <CollectionView ItemsSource="{Binding Applications}">
+        <CollectionView ItemsSource="{Binding Applications}"
+                        SelectionMode="Single"
+                        SelectionChanged="OnApplicationsSelected">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame BorderColor="LightGray" Padding="10" Margin="5">

@@ -1,5 +1,6 @@
 using JobApplicationTracker.DataAccess.Models;
 using JobAppTracker.Maui.Services;
+using JobAppTracker.Maui.ViewModels;
 using Application = JobApplicationTracker.DataAccess.Models.Application;
 
 
@@ -7,31 +8,18 @@ namespace JobAppTracker.Maui.Views;
 
 public partial class NewApplicationPage : ContentPage
 {
-    private readonly LocalApplicationStorageService _storageService;
-    public NewApplicationPage(LocalApplicationStorageService storageService)
+    private readonly NewApplicationViewModel _viewModel;
+
+    public NewApplicationPage(NewApplicationViewModel viewModel)
     {
         InitializeComponent();
-        _storageService = storageService;
+       _viewModel = viewModel;
+        BindingContext = viewModel;
     }
 
-    private void OnFieldChanged(object sender, EventArgs e)
+    protected override async void OnAppearing()
     {
-        
-        SaveButton.IsEnabled = !string.IsNullOrWhiteSpace(JobTitleEntry.Text) &&
-        ApplicationDatePicker.Date != default;
-    }
-
-    private async void OnSaveButtonClicked(object sender, EventArgs e)
-    {
-        var application = new Application
-        {
-            JobTitle = JobTitleEntry.Text,
-            JobDescription = JobDescriptionEntry.Text,
-            ApplicationDate = ApplicationDatePicker.Date,
-            Status = StatusEntry.Text,
-            
-        };
-        await _storageService.AddApplicationsAsync(application);
-        await Shell.Current.GoToAsync("..");
-    }
+        base.OnAppearing();
+        await _viewModel.LoadCompaniesAsync();
+    }   
 }

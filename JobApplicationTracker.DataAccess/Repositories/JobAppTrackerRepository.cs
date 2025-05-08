@@ -24,6 +24,11 @@ namespace JobApplicationTracker.DataAccess.Repositories
         {
             try
             {
+                if (entity == null)
+                {
+                    throw new ArgumentNullException(nameof(entity));
+                }
+            
                 await _context.Set<T>().AddAsync(entity);
                 await _context.SaveChangesAsync();
                 return entity;
@@ -69,18 +74,12 @@ namespace JobApplicationTracker.DataAccess.Repositories
 
         public async Task<T> GetByIdAsync(int id)
         {
-
-           
-
             try
             {
                 var entity = await _context.Set<T>().FindAsync(id);
                 if (entity == null)
-                {
-                    throw new Exception(($"{typeof(T).Name} with id {id} not found"));
-                }
-                _context.Set<T>().Remove(entity);
-                await _context.SaveChangesAsync();
+                    throw new Exception($"{typeof(T).Name} with id {id} not found");
+
                 return entity;
             }
             catch (Exception ex)
@@ -109,4 +108,5 @@ namespace JobApplicationTracker.DataAccess.Repositories
         }
     }
 }
+
 

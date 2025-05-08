@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="JobAppTracker.Maui.Views.ApplicationDetailsPage"
+             Title="ApplicationDetailsPage">
+    <VerticalStackLayout Padding="15" Spacing="10">
+        <Label Text="{Binding SelectedApplication.JobTitle}"/>
+        <Label Text="{Binding SelectedApplication.Status}" />
+        <Label Text="{Binding SelectedApplication.ApplicationDate, StringFormat='Applied: {0:d}'}" />
+        <Label Text="{Binding SelectedApplication.JobDescription}" />
+        <Button Text="Edit Application" 
+                Command="{Binding EditCommand}"
+                BackgroundColor="SlateBlue"
+                TextColor="White"/>
+        
+        
+
+        
+        <Label Text="Company:" FontAttributes="Bold"/>
+        <Label Text="{Binding SelectedApplication.Company?.Name}" />
+
+        
+       
+        <Button Text="View/Add Contact" Command="{Binding EditContactCommand}" />
+        <Button Text="Add Interview" Command="{Binding AddInterviewCommand}" />
+        <Button Text="Add Interview Prep" Command="{Binding AddPrepCommand}" />
+        <Button Text="Add Checked On Date" Command="{Binding AddCheckedCommand}" />
+
+    </VerticalStackLayout>
+</ContentPage>

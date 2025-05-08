@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace JobApplicationTracker.DataAccess.Models
 {
@@ -15,9 +16,11 @@ namespace JobApplicationTracker.DataAccess.Models
         public string Name { get; set; }
         public string? Email { get; set; }
         public string? Phone { get; set; }
-        [ForeignKey("Company")]
-        public int CompanyId { get; set; }
 
-        public Company Company { get; set; }
+        [ForeignKey("Application")]
+        public int ApplicationId { get; set; }
+
+        [JsonIgnore]
+        public Application Application { get; set; }
     }
 }

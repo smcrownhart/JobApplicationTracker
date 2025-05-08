@@ -15,7 +15,11 @@ public class JobAppTrackerInterviewsTests : JobAppTrackerRepositoryTestBase<Inte
             JobDescription = "InterviewPrep Test Description",
             Status = "Applied",
             ApplicationDate = DateTime.Now,
-            CompanyId = 0
+            Company = new Company
+            {
+                Name = "TestCo",
+                Website = "https://example.com"
+            }
         };
 
         _context.Applications.Add(application);

@@ -14,22 +14,20 @@ public class JobAppTrackerCompanyContactTests : JobAppTrackerRepositoryTestBase<
             JobTitle = "Company Contact Test",
             JobDescription = "Company Contact Test Description",
             ApplicationDate = DateTime.Now,
-            Status = "Applied"
+            Status = "Applied",
+            Company = new Company
+            {
+                Name = "TestCo",
+                Website = "https://example.com"
+            }
         };
 
         _context.Applications.Add(application);
         _context.SaveChanges();
 
-        var company = new Company
-        {
-            Id = 1,
-            Name = "Company Contact Test",
-            Website = "www.companycontacttest.com",
-            ApplicationId = application.Id,
-        };
+        
 
-        _context.Companies.Add(company);
-        _context.SaveChanges();
+        
 
         return new CompanyContact
         {
@@ -37,8 +35,8 @@ public class JobAppTrackerCompanyContactTests : JobAppTrackerRepositoryTestBase<
             Name = "Company Contact Test",
             Email = "contact@Test.com",
             Phone = "123-456-7890",
-            CompanyId = company.Id,
-            Company = company
+            ApplicationId = application.Id,
+            
         };
     }
 

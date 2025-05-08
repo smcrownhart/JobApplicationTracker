@@ -3,15 +3,28 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="JobAppTracker.Maui.Views.NewApplicationPage"
              Title="New Application">
-    <VerticalStackLayout>
-        <Entry x:Name="JobTitleEntry" Placeholder="Job Title" TextChanged="OnFieldChanged" />
-        <Entry x:Name="JobDescriptionEntry" Placeholder="Job Description" />
-        <Entry x:Name="StatusEntry" Placeholder="Status (Applied, Interviewed, Rejected" />
-        <DatePicker x:Name="ApplicationDatePicker" DateSelected="OnFieldChanged" />
+    <VerticalStackLayout Padding="15" Spacing="10">
+        <Entry Placeholder="Job Title" Text="{Binding JobTitle}" />
+        <Entry Placeholder="Job Description" Text="{Binding JobDescription}" />
+        <Picker Title="Select Status"
+                ItemsSource="{Binding Statuses}"
+                SelectedItem="{Binding SelectedStatus}"/>
+        <DatePicker Date="{Binding ApplicationDate}" />
+
+        <Label Text="Company" />
+        <Picker Title="Select Company"
+                ItemsSource="{Binding Companies}"
+                ItemDisplayBinding="{Binding Name}"
+                SelectedItem ="{Binding SelectedCompany}"/>
+
+        <Button Text="Add New Company"
+                TextColor="White"
+                BackgroundColor="SlateGray"
+                Command="{Binding AddCompanyCommand}"/>
 
         <Button Text="Save"
-                x:Name="SaveButton"
-                IsEnabled="False"
-                Clicked="OnSaveButtonClicked" />
+                BackgroundColor="SlateBlue"
+                TextColor="White"
+                Command="{Binding SaveCommand}" />
     </VerticalStackLayout>
 </ContentPage>

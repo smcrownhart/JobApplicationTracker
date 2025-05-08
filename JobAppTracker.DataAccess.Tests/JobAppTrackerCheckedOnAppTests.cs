@@ -8,9 +8,26 @@ public class JobAppTrackerCheckedOnAppTests : JobAppTrackerRepositoryTestBase<Ch
 {
     protected override CheckedOnApp AddAnEntity()
     {
+        var application = new Application
+        {
+            JobTitle = "Test Job",
+            JobDescription = "Test Job Description",
+            ApplicationDate = DateTime.Today,
+            Status = "Applied",
+            Company = new Company
+            {
+                Name = "TestCo",
+                Website = "https://example.com"
+            }
+        };
+
+        _context.Applications.Add(application);
+        _context.SaveChanges();
+
         return new CheckedOnApp
         {
             CheckedOnDate = DateTime.Now,
+            ApplicationId = application.Id,
         };
     }
 

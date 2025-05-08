@@ -16,18 +16,16 @@ public class JobAppTrackerInterviewPrepTests : JobAppTrackerRepositoryTestBase<I
             JobDescription = "InterviewPrep Test Description",
             Status = "Applied",
             ApplicationDate = DateTime.Now,
-            CompanyId = 0
+            Company = new Company
+            {
+                Name = "TestCo",
+                Website = "https://example.com"
+            }
         };
         _context.Applications.Add(application);
         _context.SaveChanges();
 
-        var interview = new Interviews
-        {
-            
-            InterviewDate = DateTime.Now.AddDays(1),
-            Location = "Test Location",
-            ApplicationId = application.Id
-        };
+        
 
         
 
@@ -36,8 +34,8 @@ public class JobAppTrackerInterviewPrepTests : JobAppTrackerRepositoryTestBase<I
             
             PrepNotes = "Test Prep Notes",
             CompanyNotes = "Test Company Notes",
-            InterviewsId = interview.Id,
-   
+            ApplicationId = application.Id,
+
         };
         
         return interviewPrep;

@@ -8,6 +8,9 @@ namespace JobAppTracker.Maui
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(NewApplicationPage), typeof(NewApplicationPage));
+            Routing.RegisterRoute(nameof(EditComapnyPage), typeof(EditComapnyPage));
+            Routing.RegisterRoute(nameof(NewApplicationPage), typeof(NewApplicationPage));
+            Routing.RegisterRoute(nameof(ApplicationDetailsPage), typeof(ApplicationDetailsPage));
         }
 
         

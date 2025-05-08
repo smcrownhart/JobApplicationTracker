@@ -10,13 +10,15 @@ public class JobAppTrackerApplicationTests : JobAppTrackerRepositoryTestBase<App
     {
         return new Application
         {
-            JobTitle = "Test JobTitle",
-            JobDescription = "Test JobDescription",
-            ApplicationDate = DateTime.Now,
+            JobTitle = "Test Job",
+            JobDescription = "Test Job Description",
+            ApplicationDate = DateTime.Today,
             Status = "Applied",
-            CompanyId = 1,
-            ResumePath = "C:\\Resumes\\TestResume.pdf",
-            CoverLetterPath = "C:\\CoverLetters\\CoverLetter.pdf"
+            Company = new Company { Name = "TestCo", Website = "https://example.com" },
+            CompanyContacts = new List<CompanyContact>(),
+            Interviews = new List<Interviews>(),
+            InterviewPreps = new List<InterviewPrep>(),
+            CheckedOnHistory = new List<CheckedOnApp>()
         };
     }
 

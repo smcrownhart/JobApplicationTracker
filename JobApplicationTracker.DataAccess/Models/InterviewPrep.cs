@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace JobApplicationTracker.DataAccess.Models
 {
@@ -19,9 +20,10 @@ namespace JobApplicationTracker.DataAccess.Models
         public string? CompanyNotes { get; set; }
         //notes about the company to bring up in the interview, research, talking points
 
-        [ForeignKey("Interviews")]
-        public int InterviewsId { get; set; }
+        [ForeignKey("Application")]
+        public int ApplicationId { get; set; }
 
-        public Interviews interviews { get; set; }
+        [JsonIgnore]
+        public Application Application { get; set; }
     }
 }

@@ -15,11 +15,9 @@ namespace JobApplicationTracker.DataAccess.Models
         [Required]
         public string Name { get; set; }
         public string Website { get; set; }
-        [ForeignKey("Application")]
-        public int ApplicationId { get; set; }
+        
 
 
-        public List<Application> Applications { get; set; } = new();
-        public List<CompanyContact> Contacts { get; set; } = new();
+        
     }
 }
