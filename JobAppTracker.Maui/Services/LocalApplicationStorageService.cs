@@ -13,6 +13,12 @@ namespace JobAppTracker.Maui.Services
 {
     public class LocalApplicationStorageService
     {
+        private readonly JsonSerializerOptions _jsonOptions = new()
+        {
+            PropertyNameCaseInsensitive = true,
+            WriteIndented = true,
+            ReferenceHandler = ReferenceHandler.Preserve
+        };
         private string FileName = "applications.json";
 
         private string GetFilePath()

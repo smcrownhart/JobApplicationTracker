@@ -6,7 +6,7 @@ using System.Windows.Input;
 using JobApplicationTracker.DataAccess.Models;
 using JobAppTracker.Maui.Services;
 using JobAppTracker.Maui.Views;
-using Application = JobApplicationTracker.DataAccess.Models.Application;
+using AppModel = JobApplicationTracker.DataAccess.Models.Application;
 
 namespace JobAppTracker.Maui.ViewModels
 {
@@ -33,16 +33,28 @@ namespace JobAppTracker.Maui.ViewModels
             _interviewService = interviewService;
             _prepService = prepService;
             _checkedOnService = checkedOnService;
-
+            
+            //Application-New Appliation is handled elsewhere on the button on the main page
             EditCommand = new Command(async () => await EditApplicationAsync());
+
+            //Company--New Company is handled by application page
             EditCompanyCommand = new Command(async () => await EditCompanyAsync());
+
+            //Contacts
+            AddContactCommand = new Command(async () => await AddContactAsync());
             EditContactCommand = new Command(async () => await EditContactAsync());
+            
+            //Interview Prep
             EditPrepCommand = new Command(async () => await EditPrepAsync());
+            
+            //Interviews
             AddInterviewCommand = new Command(async () => await AddInterviewAsync());
+            
+            //CheckedOnApp
             AddCheckedCommand = new Command(async () => await AddCheckedOnAsync());
         }
 
-        public Application SelectedApplication { get; set; }
+        public AppModel SelectedApplication { get; set; }
 
         public Company CompanyDetails { get; set; }
         public CompanyContact Contact { get; set; }
@@ -51,10 +63,16 @@ namespace JobAppTracker.Maui.ViewModels
         public ObservableCollection<CheckedOnApp> CheckedHistory { get; set; } = new();
 
         public ICommand EditCommand { get; }
+        //Companies
         public ICommand EditCompanyCommand { get; }
+        //Contacts
+        public ICommand AddContactCommand { get; }
         public ICommand EditContactCommand { get; }
+        //Interview Prep
         public ICommand EditPrepCommand { get; }
+        //Interviews
         public ICommand AddInterviewCommand { get; }
+        //CheckedOnApp
         public ICommand AddCheckedCommand { get; }
 
         public async Task LoadRelatedDataAsync()
@@ -63,9 +81,11 @@ namespace JobAppTracker.Maui.ViewModels
 
             var companies = await _companyService.LoadCompaniesAsync();
             CompanyDetails = companies.FirstOrDefault(c => c.Id == SelectedApplication.CompanyId);
+           
 
             var contacts = await _contactService.LoadContactsAsync();
             Contact = contacts.FirstOrDefault(c => c.ApplicationId == SelectedApplication.Id);
+            
 
             var prep = await _prepService.LoadPrepAsync();
             PrepNotes = prep.FirstOrDefault(p => p.ApplicationId == SelectedApplication.Id);
@@ -96,14 +116,26 @@ namespace JobAppTracker.Maui.ViewModels
 
         private async Task EditCompanyAsync()
         {
+            if (CompanyDetails == null) return;
             var json = JsonSerializer.Serialize(CompanyDetails);
             await Shell.Current.GoToAsync($"{nameof(EditComapnyPage)}?companyJson={Uri.EscapeDataString(json)}");
         }
 
+        private async Task AddContactAsync()
+        {
+            if (SelectedApplication == null) return;
+
+            await Shell.Current.GoToAsync($"{nameof(NewCompanyContactPage)}?applicationId={SelectedApplication.Id}");
+        }
+
         private async Task EditContactAsync()
         {
+            if (Contact == null)
+            {
+               await Shell.Current.GoToAsync($"{nameof(NewCompanyContactPage)}?applicationId={SelectedApplication.Id}");
+            }
             var json = JsonSerializer.Serialize(Contact);
-            await Shell.Current.GoToAsync($"{nameof(NewCompanyContactPage)}?contactJson={Uri.EscapeDataString(json)}&applicationId={SelectedApplication.Id}");
+            await Shell.Current.GoToAsync($"{nameof(EditCompanyContactPage)}?contactJson={Uri.EscapeDataString(json)}&applicationId={SelectedApplication.Id}");
         }
 
         private async Task EditPrepAsync()

@@ -27,16 +27,24 @@ namespace JobAppTracker.Maui
 
             //Application
             builder.Services.AddSingleton<LocalApplicationStorageService>();
-            builder.Services.AddSingleton<ApplicationViewModel>();
-            builder.Services.AddSingleton<ApplicationsPage>();
+            builder.Services.AddTransient<ApplicationViewModel>();
+            builder.Services.AddTransient<ApplicationsPage>();
             builder.Services.AddTransient<NewApplicationViewModel>();
+            builder.Services.AddTransient<ApplicationDetailsViewModel>();
+            builder.Services.AddTransient<ApplicationDetailsPage>();
             //CheckedOnApp
             builder.Services.AddSingleton<LocalCheckedOnAppStorageService>();
             builder.Services.AddTransient<CompanyViewModel>();
             //Company
             builder.Services.AddSingleton<LocalCompanyStorageService>();
+            builder.Services.AddTransient<EditComapnyPage>();
+            builder.Services.AddTransient<EditCompanyViewModel>();
             //CompanyContacts
             builder.Services.AddSingleton<LocalCompanyContactStorageService>();
+            builder.Services.AddTransient<NewCompanyContactViewModel>();
+            builder.Services.AddTransient<NewCompanyContactPage>();
+            builder.Services.AddTransient<EditCompanyContactPage>();
+            builder.Services.AddTransient<EditCompanyContactViewModel>();
             //Interviews
             builder.Services.AddSingleton<LocalInterviewStorageService>();
             //InterviewPrep

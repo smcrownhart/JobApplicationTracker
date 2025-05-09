@@ -8,7 +8,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using JobApplicationTracker.DataAccess.Models;
 using JobAppTracker.Maui.Services;
-using Application = JobApplicationTracker.DataAccess.Models.Application;
+using AppModel= JobApplicationTracker.DataAccess.Models.Application;
 
 namespace JobAppTracker.Maui.ViewModels
 {
@@ -16,8 +16,8 @@ namespace JobAppTracker.Maui.ViewModels
     {
         private readonly LocalApplicationStorageService _storageService;
 
-        public ObservableCollection<Application>
-            Applications { get; set; } = new ObservableCollection<Application>();
+        public ObservableCollection<AppModel>
+            Applications { get; set; } = new ObservableCollection<AppModel>();
 
         private bool _isBusy;
 

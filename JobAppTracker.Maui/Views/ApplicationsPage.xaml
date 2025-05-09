@@ -14,7 +14,7 @@
 
         <CollectionView ItemsSource="{Binding Applications}"
                         SelectionMode="Single"
-                        SelectionChanged="OnApplicationsSelected">
+                        SelectionChanged="OnApplicationSelected">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame BorderColor="LightGray" Padding="10" Margin="5">

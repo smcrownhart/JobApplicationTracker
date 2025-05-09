@@ -1,7 +1,7 @@
 using System.Text.Json;
 using JobAppTracker.Maui.ViewModels;
 using JobApplicationTracker.DataAccess.Models;
-using Application = JobApplicationTracker.DataAccess.Models.Application;
+using AppModel = JobApplicationTracker.DataAccess.Models.Application;
 
 namespace JobAppTracker.Maui.Views;
 
@@ -13,7 +13,7 @@ public partial class ApplicationDetailsPage : ContentPage
 	{
         InitializeComponent();
         _viewModel = viewModel;
-        BindingContext = _viewModel;
+       
 
     }
 
@@ -21,7 +21,7 @@ public partial class ApplicationDetailsPage : ContentPage
     {
         set
         {
-            var app = JsonSerializer.Deserialize<Application>(
+            var app = JsonSerializer.Deserialize<AppModel>(
                 Uri.UnescapeDataString(value),
                 new JsonSerializerOptions
                 {
@@ -30,6 +30,7 @@ public partial class ApplicationDetailsPage : ContentPage
 
             _viewModel.SelectedApplication = app;
             _ = _viewModel.LoadRelatedDataAsync();
+            BindingContext = _viewModel;
         }
     }
 }
