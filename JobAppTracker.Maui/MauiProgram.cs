@@ -41,6 +41,8 @@ namespace JobAppTracker.Maui
             builder.Services.AddSingleton<LocalCompanyStorageService>();
             builder.Services.AddTransient<EditComapnyPage>();
             builder.Services.AddTransient<EditCompanyViewModel>();
+            builder.Services.AddTransient<NewCompanyPage>();
+            builder.Services.AddTransient<NewCompanyViewModel>();
             //CompanyContacts
             builder.Services.AddSingleton<LocalCompanyContactStorageService>();
             builder.Services.AddTransient<NewCompanyContactViewModel>();

@@ -99,6 +99,8 @@ namespace JobAppTracker.Maui.ViewModels
             {
                 Companies.Add(company);
             }
+
+            SelectedCompany = Companies.OrderByDescending(c => c.Id).FirstOrDefault();
         }
 
         private async Task SaveAsync()
@@ -119,7 +121,7 @@ namespace JobAppTracker.Maui.ViewModels
 
         private async Task AddCompanyAsync()
         {
-            await Shell.Current.GoToAsync(nameof(EditComapnyPage));
+            await Shell.Current.GoToAsync(nameof(NewCompanyPage));
         }
 
         private void TriggerValidation()

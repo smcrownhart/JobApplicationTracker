@@ -7,7 +7,7 @@ using JobAppTracker.Maui.Services;
 
 namespace JobAppTracker.Maui.ViewModels
 {
-    public class EditCompanyViewModel
+    public class EditCompanyViewModel : INotifyPropertyChanged
     {
         private readonly LocalCompanyStorageService _companyService;
 
