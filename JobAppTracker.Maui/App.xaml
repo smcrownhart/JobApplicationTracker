@@ -5,6 +5,7 @@
              x:Class="JobAppTracker.Maui.App">
     <Application.Resources>
         <ResourceDictionary>
+            <Color x:Key="ShellAccent">#333333</Color>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />

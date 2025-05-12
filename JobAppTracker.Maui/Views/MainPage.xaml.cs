@@ -1,6 +1,6 @@
 ﻿using JobAppTracker.Maui.Views;
 
-namespace JobAppTracker.Maui
+namespace JobAppTracker.Maui.Views
 {
     public partial class MainPage : ContentPage
     {

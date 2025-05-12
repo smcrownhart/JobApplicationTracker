@@ -33,4 +33,14 @@ public partial class ApplicationDetailsPage : ContentPage
             BindingContext = _viewModel;
         }
     }
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        if (BindingContext is ApplicationDetailsViewModel vm)
+        {
+            await vm.LoadRelatedDataAsync();
+        }
+    }
 }

@@ -13,6 +13,7 @@ public partial class EditCompanyContactPage : ContentPage
         InitializeComponent();
         _viewModel = viewModel;
         BindingContext = _viewModel;
+
     }
 
     public string ContactJson

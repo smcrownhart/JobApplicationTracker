@@ -6,6 +6,7 @@ using System.Windows.Input;
 using JobApplicationTracker.DataAccess.Models;
 using JobAppTracker.Maui.Services;
 using JobAppTracker.Maui.Views;
+using JobAppTracker.Maui.Models;
 using AppModel = JobApplicationTracker.DataAccess.Models.Application;
 
 namespace JobAppTracker.Maui.ViewModels
@@ -107,10 +108,17 @@ namespace JobAppTracker.Maui.ViewModels
 
         private async Task EditApplicationAsync()
         {
-            var json = JsonSerializer.Serialize(SelectedApplication, new JsonSerializerOptions
+            var dto = new EditApplicationDTO
             {
-                ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve
-            });
+                Id = SelectedApplication.Id,
+                JobTitle = SelectedApplication.JobTitle,
+                JobDescription = SelectedApplication.JobDescription,
+                ApplicationDate = SelectedApplication.ApplicationDate,
+                Status = SelectedApplication.Status,
+                CompanyId = SelectedApplication.CompanyId
+            };
+
+            var json = JsonSerializer.Serialize(dto);
             await Shell.Current.GoToAsync($"{nameof(EditApplicationPage)}?appJson={Uri.EscapeDataString(json)}");
         }
 
@@ -153,6 +161,8 @@ namespace JobAppTracker.Maui.ViewModels
         {
             await Shell.Current.GoToAsync($"{nameof(NewCheckedOnAppPage)}?applicationId={SelectedApplication.Id}");
         }
+
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string name = null)
