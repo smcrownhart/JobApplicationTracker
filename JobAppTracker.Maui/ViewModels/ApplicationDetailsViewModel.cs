@@ -44,18 +44,35 @@ namespace JobAppTracker.Maui.ViewModels
             //Contacts
             AddContactCommand = new Command(async () => await AddContactAsync());
             EditContactCommand = new Command(async () => await EditContactAsync());
-            
+
             //Interview Prep
+            AddPrepCommand = new Command(async () => await AddPrepAsync());
             EditPrepCommand = new Command(async () => await EditPrepAsync());
             
             //Interviews
             AddInterviewCommand = new Command(async () => await AddInterviewAsync());
-            
+            EditInterviewCommand = new Command<Interviews>(async (interview) => await EditInterviewAsync());
             //CheckedOnApp
             AddCheckedCommand = new Command(async () => await AddCheckedOnAsync());
         }
 
         public AppModel SelectedApplication { get; set; }
+
+        private Interviews _latestInterview;
+        public Interviews LatestInterview
+        {
+            get => _latestInterview;
+            set
+            {
+                _latestInterview = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(InterviewDate));
+                OnPropertyChanged(nameof(InterviewLocation));
+            }
+        }
+
+        public DateTime InterviewDate => LatestInterview?.InterviewDate ?? DateTime.MinValue;
+        public string InterviewLocation => LatestInterview?.Location ?? "No location";
 
         public Company CompanyDetails { get; set; }
         public CompanyContact Contact { get; set; }
@@ -70,9 +87,12 @@ namespace JobAppTracker.Maui.ViewModels
         public ICommand AddContactCommand { get; }
         public ICommand EditContactCommand { get; }
         //Interview Prep
+
+        public ICommand AddPrepCommand { get; }
         public ICommand EditPrepCommand { get; }
         //Interviews
         public ICommand AddInterviewCommand { get; }
+        public ICommand EditInterviewCommand { get; }
         //CheckedOnApp
         public ICommand AddCheckedCommand { get; }
 
@@ -92,8 +112,10 @@ namespace JobAppTracker.Maui.ViewModels
             PrepNotes = prep.FirstOrDefault(p => p.ApplicationId == SelectedApplication.Id);
 
             var interviews = await _interviewService.LoadInterviewsAsync();
-            Interviews = new ObservableCollection<Interviews>(
-                interviews.Where(i => i.ApplicationId == SelectedApplication.Id));
+            LatestInterview = interviews
+                .Where(i => i.ApplicationId == SelectedApplication.Id)
+                .OrderByDescending(i => i.InterviewDate)
+                .FirstOrDefault();
 
             var checkedOns = await _checkedOnService.LoadCheckedOnAppsAsync();
             CheckedHistory = new ObservableCollection<CheckedOnApp>(
@@ -145,16 +167,39 @@ namespace JobAppTracker.Maui.ViewModels
             var json = JsonSerializer.Serialize(Contact);
             await Shell.Current.GoToAsync($"{nameof(EditCompanyContactPage)}?contactJson={Uri.EscapeDataString(json)}&applicationId={SelectedApplication.Id}");
         }
-
+        private async Task AddPrepAsync()
+        {
+            await Shell.Current.GoToAsync($"{nameof(NewInterviewPrepPage)}?applicationId={SelectedApplication.Id}");
+        }
         private async Task EditPrepAsync()
         {
+            if (PrepNotes == null)
+            {
+                
+                return;
+            }
+
             var json = JsonSerializer.Serialize(PrepNotes);
-            await Shell.Current.GoToAsync($"{nameof(NewInterviewPrepPage)}?prepJson={Uri.EscapeDataString(json)}&applicationId={SelectedApplication.Id}");
+            await Shell.Current.GoToAsync($"{nameof(EditInterviewPrepPage)}?prepJson={Uri.EscapeDataString(json)}");
         }
+        
 
         private async Task AddInterviewAsync()
         {
             await Shell.Current.GoToAsync($"{nameof(NewInterviewPage)}?applicationId={SelectedApplication.Id}");
+        }
+
+        private async Task EditInterviewAsync()
+        {
+            await Shell.Current.DisplayAlert("Debug", "EditInterviewAsync called!", "OK");
+            if (LatestInterview == null)
+            {
+                
+                return;
+            }
+            LatestInterview.Application = null;
+            var json = JsonSerializer.Serialize(LatestInterview);
+            await Shell.Current.GoToAsync($"{nameof(EditInterviewPage)}?interviewJson={Uri.EscapeDataString(json)}");
         }
 
         private async Task AddCheckedOnAsync()
