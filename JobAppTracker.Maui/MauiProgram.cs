@@ -51,8 +51,18 @@ namespace JobAppTracker.Maui
             builder.Services.AddTransient<EditCompanyContactViewModel>();
             //Interviews
             builder.Services.AddSingleton<LocalInterviewStorageService>();
+            builder.Services.AddTransient<InterviewsViewModel>();
+            builder.Services.AddTransient<NewInterviewViewModel>();
+            builder.Services.AddTransient<NewInterviewPage>();
+            builder.Services.AddTransient<EditInterviewViewModel>();
+            builder.Services.AddTransient<EditInterviewPage>();
+
             //InterviewPrep
             builder.Services.AddSingleton<LocalInterviewPrepStorageService>();
+            builder.Services.AddTransient<NewInterviewPrepPage>();
+            builder.Services.AddTransient<NewInterviewPrepViewModel>();
+            builder.Services.AddTransient<EditInterviewPrepPage>();
+            builder.Services.AddTransient<EditInterviewPrepViewModel>();
 
             builder.Services.AddSingleton<MainPage>();
 

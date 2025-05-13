@@ -50,19 +50,32 @@
                 BackgroundColor="SlateBlue"/>
 
         <Label Text="Interviews" FontAttributes="Bold" />
-        <Label Text="{Binding InterviewDate, StringFormat='Interview Date: {0:d}'}" />
+        <Label Text="{Binding InterviewDate, StringFormat='Interview Date: {0:MM/dd/yyyy}'}" />
         <Label Text="{Binding InterviewLocation}" />
         <Button Text="Add Interview" 
                 Command="{Binding AddInterviewCommand}" 
                 TextColor="White"
+                BackgroundColor="SeaGreen"/>
+            <Button Text="Edit Interview"
+                Command="{Binding EditInterviewCommand}"
+                TextColor="White"
                 BackgroundColor="SlateBlue"/>
 
         <Label Text="Interview Prep" FontAttributes="Bold" />
+        <Label Text="{Binding PrepNotes.PrepNotes}" />
+        <Label Text="{Binding PrepNotes.CompanyNotes}" />
 
-        <Button Text="Add Interview Prep" 
-                Command="{Binding AddPrepCommand}"
-                TextColor="White"
-                BackgroundColor="SlateBlue"/>
+            <Button Text="Add Interview Prep"
+            Command="{Binding AddPrepCommand}"
+            BackgroundColor="SeaGreen"
+            TextColor="White" />
+
+            <Button Text="Edit Interview Prep"
+            Command="{Binding EditPrepCommand}"
+            BackgroundColor="SlateBlue"
+            TextColor="White" />
+
+            
         
 
     </VerticalStackLayout>

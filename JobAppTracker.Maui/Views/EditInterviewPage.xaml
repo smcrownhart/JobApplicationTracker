@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="JobAppTracker.Maui.Views.EditInterviewPage"
+             Title="EditInterviewPage">
+    <ScrollView>
+        <VerticalStackLayout Padding="15" Spacing="10" HorizontalOptions="Center">
+            <DatePicker Date="{Binding InterviewDate}" />
+            <Entry Placeholder="Location" Text="{Binding Location}" />
+            <Button Text="Save Changes"
+                Command="{Binding SaveCommand}"
+                BackgroundColor="SeaGreen"
+                TextColor="White"/>
+        </VerticalStackLayout>
+    </ScrollView>
+    
+</ContentPage>

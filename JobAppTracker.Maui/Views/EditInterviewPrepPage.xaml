@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="JobAppTracker.Maui.Views.EditInterviewPrepPage"
+             Title="Edit Interview Prep">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <Label Text="Edit Interview Prep" FontAttributes="Bold" FontSize="24"/>
+
+            <Editor Placeholder="Prep Notes" Text="{Binding PrepNotes}" AutoSize="TextChanges" HeightRequest="100"/>
+            <Editor Placeholder="Company Notes" Text="{Binding CompanyNotes}" AutoSize="TextChanges" HeightRequest="100"/>
+
+            <Button Text="Save"
+                    Command="{Binding SaveCommand}"
+                    BackgroundColor="SeaGreen"
+                    TextColor="White"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -36,6 +36,18 @@
   </ItemGroup>
 
    <ItemGroup>
+     <Compile Update="Views\EditInterviewPrepPage.xaml.cs">
+       <DependentUpon>EditInterviewPrepPage.xaml</DependentUpon>
+     </Compile>
+   </ItemGroup>
+
+   <ItemGroup>
+     <MauiXaml Update="Views\EditInterviewPage.xaml">
+       <Generator>MSBuild:Compile</Generator>
+     </MauiXaml>
+     <MauiXaml Update="Views\EditInterviewPrepPage.xaml">
+       <Generator>MSBuild:Compile</Generator>
+     </MauiXaml>
      <MauiXaml Update="Views\NewCompanyPage.xaml">
        <Generator>MSBuild:Compile</Generator>
      </MauiXaml>

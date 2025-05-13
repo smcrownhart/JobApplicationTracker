@@ -19,6 +19,7 @@ public partial class ApplicationsPage : ContentPage
         if (BindingContext is ApplicationViewModel viewModel)
         {
             await viewModel.LoadApplicationsAsync();
+            viewModel.ApplyFilter(viewModel.SearchText);
         }
     }
 

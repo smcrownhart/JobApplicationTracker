@@ -4,40 +4,46 @@
              xmlns:viewmodels= "clr-namespace:JobAppTracker.Maui.ViewModels"
              x:Class="JobAppTracker.Maui.Views.ApplicationsPage"
              Title="Job Applications">
+    <ScrollView>
+        <VerticalStackLayout Padding="10">
+            <SearchBar Placeholder="Search by Job Title or Company"
+               Text="{Binding SearchText}"/>
+
+
+            <ActivityIndicator IsRunning = "{Binding IsBusy}" 
+                       IsVisible="{Binding IsBusy}"
+                       Color ="LightGray" 
+                       HeightRequest="50"/>
+
+            <CollectionView ItemsSource="{Binding FilteredApplications}"
+                    SelectionMode="Single"
+                    SelectionChanged="OnApplicationSelected">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="LightBlue" Padding="10" Margin="5">
+                            <StackLayout Padding="10">
+                                <Label Text="{Binding JobTitle}" FontSize="16" />
+                                <Label Text="{Binding JobDescription}" FontSize="16" />
+                                <Label Text="{Binding Status}" FontSize="16" />
+                                <Label Text="{Binding ApplicationDate, StringFormat
+                            ='{0:MM/dd/yyyy}'}" FontSize="16" />
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button Text="Reload"
+            Command="{Binding LoadApplicationsCommand}"
+            Margin="10"
+            HorizontalOptions="Center" />
+            <Button Text="Add New Application"
+            Clicked="OnAddApplicationButtonClicked"
+            Margin="10"
+            HorizontalOptions="Center" />
+        </VerticalStackLayout>
+    </ScrollView>
+
     
-
-    <VerticalStackLayout Padding="10">
-        <ActivityIndicator IsRunning = "{Binding IsBusy}" 
-                           IsVisible="{Binding IsBusy}"
-                           Color ="LightGray" 
-                           HeightRequest="50"/>
-
-        <CollectionView ItemsSource="{Binding Applications}"
-                        SelectionMode="Single"
-                        SelectionChanged="OnApplicationSelected">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame BorderColor="LightGray" Padding="10" Margin="5">
-                        <StackLayout Padding="10">
-                            <Label Text="{Binding JobTitle}" FontSize="20" />
-                            <Label Text="{Binding JobDescription}" FontSize="16" />
-                            <Label Text="{Binding Status}" FontSize="14" />
-                            <Label Text="{Binding ApplicationDate, StringFormat
-                                ='{0:MM/dd/yyyy}'}" FontSize="12" />
-                        </StackLayout>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-        <Button Text="Reload"
-                Command="{Binding LoadApplicationsCommand}"
-                Margin="10"
-                HorizontalOptions="Center" />
-        <Button Text="Add New Application"
-                Clicked="OnAddApplicationButtonClicked"
-                Margin="10"
-                HorizontalOptions="Center" />
-    </VerticalStackLayout>
 </ContentPage>
 
 <!--<Label 

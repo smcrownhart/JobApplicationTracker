@@ -2,11 +2,24 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="JobAppTracker.Maui.Views.NewInterviewPrepPage"
-             Title="NewInterviewPrepPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Add Interview Prep">
+    <ScrollView>
+        <VerticalStackLayout Padding="15" Spacing="10" HorizontalOptions="Center">
+            <Label Text="Add Interview Prep" FontAttributes="Bold"/>
+
+            <Editor Placeholder="Add some notes to remind yourself of the job description, how your qualifications match, etc..." 
+                    Text="{Binding PrepNotes}" 
+                    AutoSize="TextChanges" 
+                    HeightRequest="200"/>
+            <Editor Placeholder="Drop some notes on the company to give you an edge. It'll help show you're interested, tailor responses, and show them you came prepared." 
+                    Text="{Binding CompanyNotes}" 
+                    AutoSize="TextChanges" 
+                    HeightRequest="200"/>
+
+            <Button Text="Save"
+                    Command="{Binding SaveCommand}"
+                    BackgroundColor="SeaGreen"
+                    TextColor="White"/>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
