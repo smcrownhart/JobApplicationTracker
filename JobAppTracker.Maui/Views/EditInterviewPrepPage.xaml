@@ -4,7 +4,7 @@
              x:Class="JobAppTracker.Maui.Views.EditInterviewPrepPage"
              Title="Edit Interview Prep">
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
+        <VerticalStackLayout Padding="15" Spacing="10" HorizontalOptions="Center">
             <Label Text="Edit Interview Prep" FontAttributes="Bold" FontSize="24"/>
 
             <Editor Placeholder="Prep Notes" Text="{Binding PrepNotes}" AutoSize="TextChanges" HeightRequest="100"/>

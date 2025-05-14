@@ -56,7 +56,17 @@ namespace JobAppTracker.Maui.ViewModels
             AddCheckedCommand = new Command(async () => await AddCheckedOnAsync());
         }
 
-        public AppModel SelectedApplication { get; set; }
+        private AppModel _selectedApplication;
+        public AppModel SelectedApplication
+        {
+            get => _selectedApplication;
+            set
+            {
+                _selectedApplication = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         private Interviews _latestInterview;
         public Interviews LatestInterview
@@ -73,6 +83,17 @@ namespace JobAppTracker.Maui.ViewModels
 
         public DateTime InterviewDate => LatestInterview?.InterviewDate ?? DateTime.MinValue;
         public string InterviewLocation => LatestInterview?.Location ?? "No location";
+
+        private DateTime _newCheckedOnDate = DateTime.Now;
+        public DateTime NewCheckedOnDate
+        {
+            get => _newCheckedOnDate;
+            set
+            {
+                _newCheckedOnDate = value;
+                OnPropertyChanged();
+            }
+        }
 
         public Company CompanyDetails { get; set; }
         public CompanyContact Contact { get; set; }
@@ -204,7 +225,19 @@ namespace JobAppTracker.Maui.ViewModels
 
         private async Task AddCheckedOnAsync()
         {
-            await Shell.Current.GoToAsync($"{nameof(NewCheckedOnAppPage)}?applicationId={SelectedApplication.Id}");
+            var checkedOns = await _checkedOnService.LoadCheckedOnAppsAsync();
+
+            var newChecked = new CheckedOnApp
+            {
+                ApplicationId = SelectedApplication.Id,
+                CheckedOnDate = NewCheckedOnDate
+            };
+
+            checkedOns.Add(newChecked);
+            await _checkedOnService.SaveCheckedOnAppsAsync(checkedOns);
+
+            
+            CheckedHistory.Add(newChecked);
         }
 
         

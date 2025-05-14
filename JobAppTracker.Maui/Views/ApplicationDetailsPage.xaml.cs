@@ -13,7 +13,7 @@ public partial class ApplicationDetailsPage : ContentPage
 	{
         InitializeComponent();
         _viewModel = viewModel;
-       
+        BindingContext = _viewModel;
 
     }
 
@@ -21,16 +21,9 @@ public partial class ApplicationDetailsPage : ContentPage
     {
         set
         {
-            var app = JsonSerializer.Deserialize<AppModel>(
-                Uri.UnescapeDataString(value),
-                new JsonSerializerOptions
-                {
-                    ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve
-                });
-
+            var app = JsonSerializer.Deserialize<AppModel>(Uri.UnescapeDataString(value));
             _viewModel.SelectedApplication = app;
             _ = _viewModel.LoadRelatedDataAsync();
-            BindingContext = _viewModel;
         }
     }
 

@@ -4,7 +4,7 @@
              x:Class="JobAppTracker.Maui.Views.NewCompanyPage"
              Title="Add Company">
     <ScrollView>
-        <VerticalStackLayout Padding="15" Spacing="10">
+        <VerticalStackLayout Padding="15" Spacing="10" HorizontalOptions="Center">
             <Entry Text="{Binding Name}" Placeholder="Company Name" />
             <Entry Text="{Binding Website}" Placeholder="Company Website" />
             <Button Text="Save"

@@ -5,7 +5,7 @@
              x:Class="JobAppTracker.Maui.Views.ApplicationsPage"
              Title="Job Applications">
     <ScrollView>
-        <VerticalStackLayout Padding="10">
+        <VerticalStackLayout Padding="15" Spacing="10" HorizontalOptions="Center">
             <SearchBar Placeholder="Search by Job Title or Company"
                Text="{Binding SearchText}"/>
 

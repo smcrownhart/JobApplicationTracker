@@ -4,7 +4,7 @@
              x:Class="JobAppTracker.Maui.Views.EditComapnyPage"
              Title="EditComapnyPage">
     <ScrollView>
-        <VerticalStackLayout HorizontalOptions="Center">
+        <VerticalStackLayout Padding="15" Spacing="10" HorizontalOptions="Center">
             <Label Text="Edit Company" FontAttributes="Bold" />
             <Entry Text="{Binding Name}" />
             <Entry Text="{Binding Website}" />

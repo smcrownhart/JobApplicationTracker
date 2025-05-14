@@ -5,7 +5,7 @@
              Title="EditCompanyContactPage">
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
+        <VerticalStackLayout Padding="15" Spacing="10" HorizontalOptions="Center">
             <Label Text="Edit Company Contact" FontSize="24" FontAttributes="Bold"/>
 
             <Entry Text="{Binding Name}" Placeholder="Contact Name"/>

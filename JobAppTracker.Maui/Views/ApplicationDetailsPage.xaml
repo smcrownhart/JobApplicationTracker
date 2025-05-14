@@ -18,9 +18,17 @@
                 BackgroundColor="SlateBlue"
                 TextColor="White"/>
         <Label Text="Checked On History" FontAttributes="Bold" />
-        <Label Text="{Binding CheckedOnHistoryFormatted}" />
+            <CollectionView ItemsSource="{Binding CheckedHistory}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding CheckedOnDate, StringFormat='Checked on: {0:MM/dd/yyyy}'}" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
-        <Button Text="Add Checked On Date" 
+            <Label Text="Select Checked On Date:" FontAttributes="Bold"/>
+            <DatePicker Date="{Binding NewCheckedOnDate}" />
+            <Button Text="Mark as Checked" 
                 Command="{Binding AddCheckedCommand}"
                 BackgroundColor="SlateBlue"
                 TextColor="White"/>
