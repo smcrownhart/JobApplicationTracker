@@ -1,82 +1,81 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using JobApplicationTracker.DataAccess.Models;
 using JobAppTracker.Maui.Services;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
+
 
 namespace JobAppTracker.Maui.ViewModels
 {
-    public class CompanyViewModel
+    public class CompanyViewModel : INotifyPropertyChanged
     {
         private readonly LocalCompanyStorageService _companyService;
+        private readonly CompanyDeletionService _deletionService;
 
-        private Company _company;
-        public Company Company
+        private ObservableCollection<Company> _companies = new();
+
+        public ObservableCollection<Company> Companies
         {
-            get => _company;
-            set
-            {
-                _company = value;
-                OnPropertyChanged();
-            }
+            get => _companies;
+            set => SetProperty(ref _companies, value);
         }
 
-        public ICommand SaveCommand { get; }
-        public ICommand DeleteCommand { get; }
-        public ICommand CancelCommand { get; }
+        public ICommand LoadCompaniesCommand { get; }
+        public ICommand DeleteCompanyCommand { get; }
+        public ICommand AddCompanyCommand { get; }
 
-        public CompanyViewModel(LocalCompanyStorageService companyService)
+        public CompanyViewModel(
+            LocalCompanyStorageService companyService, CompanyDeletionService deletionService)
         {
             _companyService = companyService;
-            Company = new Company();
-            SaveCommand = new Command(async () => await SaveCompanyAsync());
-            DeleteCommand = new Command(async () => await DeleteCompanyAsync());
-            CancelCommand = new Command(async () => await CancelAsync());
+            _deletionService = deletionService;
+            LoadCompaniesCommand = new Command(async () => await LoadCompaniesAsync());
+            DeleteCompanyCommand = new Command<Company>(async (company) => await DeleteCompanyAsync(company));
+            AddCompanyCommand = new Command(async () => await AddCompanyAsync());
         }
 
-        public void LoadCompany(Company company)
+        public async Task LoadCompaniesAsync()
         {
-            Company = company ?? new Company();
+            var companies = await _companyService.LoadCompaniesAsync();
+            Companies = new ObservableCollection<Company>(companies);
         }
 
-        private async Task SaveCompanyAsync()
+        private async Task DeleteCompanyAsync(Company company)
         {
-            if (Company.Id == 0)
-            {
-                await _companyService.AddCompanyAsync(Company);
-            }
-            else
-            {
-                await _companyService.UpdateCompanyAsync(Company);
-            }
+            if (company == null) return;
 
-            await Shell.Current.GoToAsync("..");
-        }
+            var canDelete = await _deletionService.CanDeleteCompanyAsync(company.Id);
 
-        private async Task DeleteCompanyAsync()
-        {
-            if (Company.Id == 0)
+            if (!canDelete)
             {
+                await Shell.Current.DisplayAlert("Error", "You must delete all applications associated with this company first.", "OK");
                 return;
             }
-            if (Company.Id != 0)
-            {
-                await _companyService.DeleteCompanyAsync(Company.Id);
-            }
-            await Shell.Current.GoToAsync("..");
+
+            await _deletionService.DeleteCompanyAsync(company.Id);
+
+            await LoadCompaniesAsync();
         }
 
-        private async Task CancelAsync()
+        private async Task AddCompanyAsync()
         {
-            await Shell.Current.GoToAsync("..");
+            var newCompany = new Company { Name = "New Company", Website = "https://example.com" };
+            await _companyService.AddCompanyAsync(newCompany);
+            Companies.Add(newCompany);
         }
-
         public event PropertyChangedEventHandler PropertyChanged;
+
+        protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "", Action onChanged = null)
+        {
+            if (EqualityComparer<T>.Default.Equals(backingStore, value))
+                return false;
+            backingStore = value;
+            onChanged?.Invoke();
+            OnPropertyChanged(propertyName);
+            return true;
+        }
         protected void OnPropertyChanged([CallerMemberName] string name = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }

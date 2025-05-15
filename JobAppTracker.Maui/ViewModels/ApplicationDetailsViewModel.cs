@@ -19,14 +19,15 @@ namespace JobAppTracker.Maui.ViewModels
         private readonly LocalInterviewStorageService _interviewService;
         private readonly LocalInterviewPrepStorageService _prepService;
         private readonly LocalCheckedOnAppStorageService _checkedOnService;
-
+        private readonly ApplicationDeletionService _deletionService;
         public ApplicationDetailsViewModel(
             LocalApplicationStorageService appService,
             LocalCompanyStorageService companyService,
             LocalCompanyContactStorageService contactService,
             LocalInterviewStorageService interviewService,
             LocalInterviewPrepStorageService prepService,
-            LocalCheckedOnAppStorageService checkedOnService)
+            LocalCheckedOnAppStorageService checkedOnService
+,           ApplicationDeletionService deletionService)
         {
             _appService = appService;
             _companyService = companyService;
@@ -34,9 +35,11 @@ namespace JobAppTracker.Maui.ViewModels
             _interviewService = interviewService;
             _prepService = prepService;
             _checkedOnService = checkedOnService;
-            
+            _deletionService = deletionService;
+
             //Application-New Appliation is handled elsewhere on the button on the main page
             EditCommand = new Command(async () => await EditApplicationAsync());
+            DeleteApplicationCommand = new Command(async () => await DeleteApplicationAsync());
 
             //Company--New Company is handled by application page
             EditCompanyCommand = new Command(async () => await EditCompanyAsync());
@@ -48,12 +51,13 @@ namespace JobAppTracker.Maui.ViewModels
             //Interview Prep
             AddPrepCommand = new Command(async () => await AddPrepAsync());
             EditPrepCommand = new Command(async () => await EditPrepAsync());
-            
+
             //Interviews
             AddInterviewCommand = new Command(async () => await AddInterviewAsync());
             EditInterviewCommand = new Command<Interviews>(async (interview) => await EditInterviewAsync());
             //CheckedOnApp
             AddCheckedCommand = new Command(async () => await AddCheckedOnAsync());
+           
         }
 
         private AppModel _selectedApplication;
@@ -240,7 +244,19 @@ namespace JobAppTracker.Maui.ViewModels
             CheckedHistory.Add(newChecked);
         }
 
-        
+        public ICommand DeleteApplicationCommand { get; }
+
+        private async Task DeleteApplicationAsync()
+        {
+            if (SelectedApplication == null) return;
+
+            var confirm = await Shell.Current.DisplayAlert("Confirm", "Deleting Application " +
+                "will delete all associated info with it", "Yes", "No");
+            if (!confirm) return;
+
+            await _deletionService.DeleteApplicationAndRelatedAsync(SelectedApplication.Id);
+            await Shell.Current.GoToAsync("..");
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string name = null)

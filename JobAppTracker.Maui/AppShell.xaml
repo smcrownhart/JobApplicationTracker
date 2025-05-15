@@ -4,8 +4,21 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:JobAppTracker.Maui.Views"
-    Shell.FlyoutBehavior="Flyout"
+    Shell.FlyoutBackgroundColor="#F0F0F0"
+    Shell.TitleColor="Black"
+    Shell.BackgroundColor="#F0F0F0"
+    Shell.ForegroundColor="Black"
     Title="JobAppTracker">
+
+    <Shell.FlyoutHeader>
+        <Grid BackgroundColor="#F0F0F0" Padding="15">
+            <Label Text="Menu"
+                   FontSize="24"
+                   TextColor="Black"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"/>
+        </Grid>
+    </Shell.FlyoutHeader>
 
     <FlyoutItem Title="Home" Route="MainPage">
         <ShellContent ContentTemplate="{DataTemplate views:MainPage}" />
@@ -13,6 +26,10 @@
 
     <FlyoutItem Title="Applications" Route="ApplicationsPage">
         <ShellContent ContentTemplate="{DataTemplate views:ApplicationsPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Companies" Route="CompaniesPage">
+        <ShellContent ContentTemplate="{DataTemplate views:CompaniesViewPage}" />
     </FlyoutItem>
 
     <FlyoutItem Title="Add Application" Route="NewApplicationPage">

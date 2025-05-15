@@ -75,17 +75,21 @@
 
             <Button Text="Add Interview Prep"
             Command="{Binding AddPrepCommand}"
-            BackgroundColor="SeaGreen"
+            BackgroundColor="LightGreen"
             TextColor="White" />
 
             <Button Text="Edit Interview Prep"
             Command="{Binding EditPrepCommand}"
-            BackgroundColor="SlateBlue"
+            BackgroundColor="DarkCyan"
             TextColor="White" />
 
-            
-        
 
-    </VerticalStackLayout>
+       <Button Text="Delete Application"
+        Command="{Binding DeleteApplicationCommand}"
+        BackgroundColor="Red"
+        TextColor="White"
+        Margin="0,20,0,0"/>
+
+        </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

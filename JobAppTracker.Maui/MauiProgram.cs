@@ -27,6 +27,7 @@ namespace JobAppTracker.Maui
 
             //Application
             builder.Services.AddSingleton<LocalApplicationStorageService>();
+            builder.Services.AddTransient<ApplicationDeletionService>();
             builder.Services.AddTransient<ApplicationViewModel>();
             builder.Services.AddTransient<ApplicationsPage>();
             builder.Services.AddTransient<NewApplicationViewModel>();
@@ -36,13 +37,17 @@ namespace JobAppTracker.Maui
             builder.Services.AddTransient<EditApplicationViewModel>();
             //CheckedOnApp
             builder.Services.AddSingleton<LocalCheckedOnAppStorageService>();
-            builder.Services.AddTransient<CompanyViewModel>();
+            
             //Company
             builder.Services.AddSingleton<LocalCompanyStorageService>();
+            builder.Services.AddTransient<CompanyDeletionService>();
+            builder.Services.AddTransient<CompanyViewModel>();
             builder.Services.AddTransient<EditComapnyPage>();
             builder.Services.AddTransient<EditCompanyViewModel>();
             builder.Services.AddTransient<NewCompanyPage>();
             builder.Services.AddTransient<NewCompanyViewModel>();
+            builder.Services.AddTransient<CompaniesViewPage>();
+            
             //CompanyContacts
             builder.Services.AddSingleton<LocalCompanyContactStorageService>();
             builder.Services.AddTransient<NewCompanyContactViewModel>();
