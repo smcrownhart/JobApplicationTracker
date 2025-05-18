@@ -216,7 +216,7 @@ namespace JobAppTracker.Maui.ViewModels
 
         private async Task EditInterviewAsync()
         {
-            await Shell.Current.DisplayAlert("Debug", "EditInterviewAsync called!", "OK");
+           
             if (LatestInterview == null)
             {
                 
