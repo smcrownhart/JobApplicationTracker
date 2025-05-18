@@ -5,88 +5,131 @@
              Title="ApplicationDetailsPage">
 
     <ScrollView>
-    <VerticalStackLayout Padding="15" Spacing="10" HorizontalOptions="Center">
-        <Label Text="Application Details" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
-        <Label Text="{Binding SelectedApplication.JobTitle}"/>
-        <Label Text="{Binding SelectedApplication.Status}" />
-        <Label Text="{Binding SelectedApplication.ApplicationDate, StringFormat='Applied: {0:d}'}" />
-        <Label Text="{Binding SelectedApplication.JobDescription}" />
+        <VerticalStackLayout
+        Padding="20"
+        Spacing="15"
+        WidthRequest="400"
+        HorizontalOptions="Center"
+        VerticalOptions="Start">
+            <Label Text="Application Details" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
+        <Label Text="{Binding SelectedApplication.JobTitle}"
+               HorizontalOptions="Center"/>
+        <Label Text="{Binding SelectedApplication.Status}" 
+               HorizontalOptions="Center"/>
+        <Label Text="{Binding SelectedApplication.ApplicationDate, StringFormat='Applied: {0:d}'}" 
+               HorizontalOptions="Center"/>
+        <Label Text="{Binding SelectedApplication.JobDescription}" 
+               HorizontalOptions="Center"/>
         <Button Text="Edit Application" 
-               
+               WidthRequest="200"
+                HeightRequest="50"
                 Margin="10"
                 Command="{Binding EditCommand}"
-                BackgroundColor="SlateBlue"
-                TextColor="White"/>
-        <Label Text="Checked On History" FontAttributes="Bold" />
-            <CollectionView ItemsSource="{Binding CheckedHistory}">
+                BackgroundColor="Grey"
+                TextColor="Black"/>
+        <Label Text="Checked On History" FontAttributes="Bold" 
+               HorizontalOptions="Center"/>
+            <CollectionView ItemsSource="{Binding CheckedHistory}" >
                 <CollectionView.ItemTemplate>
+                    
                     <DataTemplate>
-                        <Label Text="{Binding CheckedOnDate, StringFormat='Checked on: {0:MM/dd/yyyy}'}" />
+                        <HorizontalStackLayout HorizontalOptions="Center">
+                            <Label Text="{Binding CheckedOnDate, StringFormat='Checked on: {0:MM/dd/yyyy}'}"/>
+                         </HorizontalStackLayout>      
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <Label Text="Select Checked On Date:" FontAttributes="Bold"/>
-            <DatePicker Date="{Binding NewCheckedOnDate}" />
+            <Label Text="Select Checked On Date:" FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+            <DatePicker Date="{Binding NewCheckedOnDate}"
+                        HorizontalOptions="Center"/>
             <Button Text="Mark as Checked" 
                 Command="{Binding AddCheckedCommand}"
-                BackgroundColor="SlateBlue"
-                TextColor="White"/>
+                BackgroundColor="Grey"
+                TextColor="Black"
+                    WidthRequest="200"
+                    HeightRequest="50"/>
 
 
-        <Label Text="Company Info" FontAttributes="Bold"/>
-        <Label Text="{Binding CompanyDetails.Name}" />
-        <Label Text="{Binding CompanyDetails.Website}" />
+         <Label Text="Company Info" FontAttributes="Bold" HorizontalOptions="Center"/>
+        <Label Text="{Binding CompanyDetails.Name}" 
+               HorizontalOptions="Center"/>
+        <Label Text="{Binding CompanyDetails.Website}" 
+               HorizontalOptions="Center"/>
         <Button Text="Update Company" 
                 Command="{Binding EditCompanyCommand}"
-                TextColor="White"
-                BackgroundColor="SlateBlue"/>
+                WidthRequest="200"
+                HeightRequest="50"
+                TextColor="Black"
+                BackgroundColor="Grey"/>
 
-        <Label Text="Company Contact Info for Application" FontAttributes="Bold"/>
-        <Label Text="{Binding Contact.Name}" />
-        <Label Text="{Binding Contact.Email}" />
-        <Label Text="{Binding Contact.Phone}" />
+        <Label Text="Company Contact Info for Application" FontAttributes="Bold" HorizontalOptions="Center"/>
+        <Label Text="{Binding Contact.Name}" 
+               HorizontalOptions="Center"/>
+        <Label Text="{Binding Contact.Email}" 
+               HorizontalOptions="Center"/>
+        <Label Text="{Binding Contact.Phone}"
+               HorizontalOptions="Center"/>
 
             <Button Text="Add Contact"
                     Command="{Binding AddContactCommand}"
                     BackgroundColor="SeaGreen"
-                    TextColor="White"
+                    TextColor="Black"
+                    WidthRequest="200"
+                    HeightRequest="50"
                     Margin="0,10,0,0"/>
             <Button Text="Edit Contact" 
                 Command="{Binding EditContactCommand}"
-                TextColor="White"
-                BackgroundColor="SlateBlue"/>
+                WidthRequest="200"
+                HeightRequest="50"
+                TextColor="Black"
+                BackgroundColor="Grey"/>
 
-        <Label Text="Interviews" FontAttributes="Bold" />
-        <Label Text="{Binding InterviewDate, StringFormat='Interview Date: {0:MM/dd/yyyy}'}" />
-        <Label Text="{Binding InterviewLocation}" />
+        <Label Text="Interviews" FontAttributes="Bold" HorizontalOptions="Center" />
+        <Label Text="{Binding InterviewDate, StringFormat='Interview Date: {0:MM/dd/yyyy}'}" 
+               HorizontalOptions="Center"/>
+        <Label Text="{Binding InterviewLocation}"
+               HorizontalOptions="Center"/>
         <Button Text="Add Interview" 
-                Command="{Binding AddInterviewCommand}" 
-                TextColor="White"
+                Command="{Binding AddInterviewCommand}"
+                WidthRequest="200"
+                HeightRequest="50"
+                TextColor="Black"
                 BackgroundColor="SeaGreen"/>
             <Button Text="Edit Interview"
                 Command="{Binding EditInterviewCommand}"
-                TextColor="White"
-                BackgroundColor="SlateBlue"/>
+                WidthRequest="200"
+                HeightRequest="50"
+                TextColor="Black"
+                BackgroundColor="Grey"/>
 
-        <Label Text="Interview Prep" FontAttributes="Bold" />
-        <Label Text="{Binding PrepNotes.PrepNotes}" />
-        <Label Text="{Binding PrepNotes.CompanyNotes}" />
+        <Label Text="Interview Prep" FontAttributes="Bold" HorizontalOptions="Center"/>
+        <Label Text="{Binding PrepNotes.PrepNotes}"
+               HorizontalOptions="Center"/>
+        <Label Text="{Binding PrepNotes.CompanyNotes}"
+               HorizontalOptions="Center"/>
 
             <Button Text="Add Interview Prep"
             Command="{Binding AddPrepCommand}"
-            BackgroundColor="LightGreen"
-            TextColor="White" />
+             WidthRequest="200"
+            HeightRequest="50"
+            BackgroundColor="SeaGreen"
+            TextColor="Black" />
 
             <Button Text="Edit Interview Prep"
             Command="{Binding EditPrepCommand}"
-            BackgroundColor="DarkCyan"
-            TextColor="White" />
+            WidthRequest="200"
+            HeightRequest="50"
+            BackgroundColor="Grey"
+            TextColor="Black" />
 
 
        <Button Text="Delete Application"
         Command="{Binding DeleteApplicationCommand}"
-        BackgroundColor="Red"
+        WidthRequest="200"
+        HeightRequest="50"
+        BackgroundColor="DarkRed"
         TextColor="White"
         Margin="0,20,0,0"/>
 

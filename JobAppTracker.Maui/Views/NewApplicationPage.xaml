@@ -21,12 +21,18 @@
             <Button Text="Add New Company"
             TextColor="White"
             BackgroundColor="SlateGray"
-            Command="{Binding AddCompanyCommand}"/>
+            Command="{Binding AddCompanyCommand}"
+            WidthRequest="200"
+            HeightRequest="50"
+            HorizontalOptions="Center"/>
 
             <Button Text="Save"
-            BackgroundColor="SlateBlue"
+            BackgroundColor="SeaGreen"
             TextColor="White"
-            Command="{Binding SaveCommand}" />
+            Command="{Binding SaveCommand}"
+            WidthRequest="200"
+            HeightRequest="50"
+            HorizontalOptions="Center"/>    
         </VerticalStackLayout>
     </ScrollView>
     

@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using JobApplicationTracker.DataAccess.Models;
 using JobAppTracker.Maui.Services;
+using JobAppTracker.Maui.Views;
 
 namespace JobAppTracker.Maui.ViewModels
 {
@@ -14,6 +15,8 @@ namespace JobAppTracker.Maui.ViewModels
         {
             _companyService = companyService;
             SaveCommand = new Command(async () => await SaveAsync());
+            AddCompanyCommand = new Command(async () => await AddCompanyAsync());
+
         }
 
         private string _name;
@@ -37,8 +40,16 @@ namespace JobAppTracker.Maui.ViewModels
                 OnPropertyChanged();
             }
         }
+        public ICommand AddCompanyCommand { get; }
 
+
+
+        private async Task AddCompanyAsync()
+        {
+            await Shell.Current.GoToAsync(nameof(NewCompanyPage));
+        }
         public ICommand SaveCommand { get; }
+        
 
         private async Task SaveAsync()
         {

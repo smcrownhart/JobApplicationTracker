@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using JobApplicationTracker.DataAccess.Models;
 using JobAppTracker.Maui.Services;
+using JobAppTracker.Maui.Views;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 
@@ -61,9 +62,7 @@ namespace JobAppTracker.Maui.ViewModels
 
         private async Task AddCompanyAsync()
         {
-            var newCompany = new Company { Name = "New Company", Website = "https://example.com" };
-            await _companyService.AddCompanyAsync(newCompany);
-            Companies.Add(newCompany);
+            await Shell.Current.GoToAsync(nameof(NewCompanyPage));
         }
         public event PropertyChangedEventHandler PropertyChanged;
 

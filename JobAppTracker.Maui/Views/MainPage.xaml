@@ -32,6 +32,8 @@
                 BackgroundColor="SlateGray"
                 SemanticProperties.Hint="View, Add, Edit, Delete Applications"
                 Clicked="OnViewApplicationsClicked"
+                WidthRequest="200"
+                HeightRequest="50"
                 HorizontalOptions="Center" />
         </VerticalStackLayout>
     </ScrollView>

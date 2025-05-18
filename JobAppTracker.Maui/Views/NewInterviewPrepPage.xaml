@@ -19,7 +19,10 @@
             <Button Text="Save"
                     Command="{Binding SaveCommand}"
                     BackgroundColor="SeaGreen"
-                    TextColor="White"/>
+                    TextColor="White"
+                    WidthRequest="200"
+                    HeightRequest="50"
+                    HorizontalOptions="Center"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

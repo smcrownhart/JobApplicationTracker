@@ -11,35 +11,43 @@
             <CollectionView ItemsSource="{Binding Companies}" SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame BorderColor="Gray" Padding="10" Margin="5">
-                            <HorizontalStackLayout VerticalOptions="Center" Spacing="10">
+                        <Frame BorderColor="Gray" Padding="10" Margin="10" WidthRequest="350" HorizontalOptions="Center">
+                            <Grid ColumnDefinitions="*,Auto" VerticalOptions="Center">
+
                                 
-                                <VerticalStackLayout HorizontalOptions="StartAndExpand">
+                                <VerticalStackLayout Grid.Column="0" Spacing="2">
                                     <Label Text="{Binding Name}" FontSize="18" />
                                     <Label Text="{Binding Website}" FontSize="14" />
                                 </VerticalStackLayout>
 
-                               
-                                <Button Text="X"
-                                        FontSize="14"
-                                        WidthRequest="40"
-                                        HeightRequest="40"
-                                        CornerRadius="20"
-                                        Command="{Binding BindingContext.DeleteCompanyCommand, Source={x:Reference CompaniesPage}}"
-                                        CommandParameter="{Binding}"
-                                        BackgroundColor="Firebrick"
-                                        TextColor="White"
-                                        VerticalOptions="Center"/>
-                            </HorizontalStackLayout>
+                                
+                                <Button Grid.Column="1"
+                                    Text="X"
+                                    FontSize="14"
+                                    WidthRequest="40"
+                                    HeightRequest="40"
+                                    CornerRadius="20"
+                                    Command="{Binding BindingContext.DeleteCompanyCommand, Source={x:Reference CompaniesPage}}"
+                                    CommandParameter="{Binding}"
+                                    BackgroundColor="Firebrick"
+                                    TextColor="White"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="End"/>
+                            </Grid>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-
             <Button Text="Add Company"
+                    WidthRequest="200"
+                    HeightRequest="50"
                     Command="{Binding AddCompanyCommand}"
                     BackgroundColor="SeaGreen"
                     TextColor="White"/>
+        
         </VerticalStackLayout>
     </ScrollView>
+
+    
+    
 </ContentPage>

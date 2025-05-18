@@ -33,13 +33,21 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
             <Button Text="Reload"
-            Command="{Binding LoadApplicationsCommand}"
-            Margin="10"
-            HorizontalOptions="Center" />
+                    Command="{Binding LoadApplicationsCommand}"
+                    Margin="10"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    WidthRequest="200"
+                    HeightRequest="50"
+                    HorizontalOptions="Center" />
             <Button Text="Add New Application"
-            Clicked="OnAddApplicationButtonClicked"
-            Margin="10"
-            HorizontalOptions="Center" />
+                    BackgroundColor="SeaGreen"
+                    TextColor="Black"
+                    WidthRequest="200"
+                    HeightRequest="50"
+                    Clicked="OnAddApplicationButtonClicked"
+                    Margin="10"
+                    HorizontalOptions="Center" />
         </VerticalStackLayout>
     </ScrollView>
 

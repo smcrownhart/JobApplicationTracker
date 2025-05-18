@@ -4,14 +4,14 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:JobAppTracker.Maui.Views"
-    Shell.FlyoutBackgroundColor="#F0F0F0"
+    Shell.FlyoutBackgroundColor="Gray"
     Shell.TitleColor="Black"
-    Shell.BackgroundColor="#F0F0F0"
-    Shell.ForegroundColor="Black"
+    Shell.BackgroundColor="Gray"
+    Shell.ForegroundColor="LightGray"
     Title="JobAppTracker">
 
     <Shell.FlyoutHeader>
-        <Grid BackgroundColor="#F0F0F0" Padding="15">
+        <Grid BackgroundColor="Gray" Padding="15">
             <Label Text="Menu"
                    FontSize="24"
                    TextColor="Black"

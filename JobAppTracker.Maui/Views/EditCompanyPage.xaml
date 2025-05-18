@@ -8,11 +8,14 @@
             <Label Text="Edit Company" FontAttributes="Bold" />
             <Entry Text="{Binding Name}" />
             <Entry Text="{Binding Website}" />
-            
+
             <Button Text="Save" 
                     Command="{Binding SaveCommand}"
                     BackgroundColor="SeaGreen"
-                    TextColor="White"/>
+                    TextColor="White"
+                    WidthRequest="200"
+                    HeightRequest="50"
+                    HorizontalOptions="Center"/>
         </VerticalStackLayout>
     </ScrollView>
     
