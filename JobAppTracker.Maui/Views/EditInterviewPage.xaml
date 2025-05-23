@@ -5,8 +5,11 @@
              Title="EditInterviewPage">
     <ScrollView>
         <VerticalStackLayout Padding="15" Spacing="10" HorizontalOptions="Center">
+            <Label Text="Change Interview Date"/>
             <DatePicker Date="{Binding InterviewDate}" />
-            <Entry Placeholder="Location" Text="{Binding Location}" />
+            <Label Text="Change Interview Time" />
+            <TimePicker Time="{Binding InterviewTime}"/>
+            <Entry Placeholder="Change Location" Text="{Binding Location}" />
             <Button Text="Save Changes"
                 Command="{Binding SaveCommand}"
                 BackgroundColor="SeaGreen"

@@ -5,7 +5,10 @@
              Title="NewInterviewPage">
     <ScrollView>
         <VerticalStackLayout Padding="15" Spacing="10" HorizontalOptions="Center">
+            <Label Text="Add Interview Date" />
             <DatePicker Date = "{Binding InterviewDate}"/>
+            <Label Text="Add Interview Time" />
+            <TimePicker Time="{Binding InterviewTime}"/>
             <Entry Placeholder="Online? Onsite? Type Here" 
            Text="{Binding Location}"/>
             <Button Text="Save"

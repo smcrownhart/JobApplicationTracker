@@ -15,6 +15,7 @@ namespace JobAppTracker.Maui.ViewModels
             _interviewStorageService = interviewStorageService;
             SaveCommand = new Command(async () => await SaveAsync());
             InterviewDate = DateTime.Now;
+            InterviewTime = DateTime.Now.TimeOfDay;
         }
 
         public int ApplicationId { get; set; }
@@ -27,6 +28,18 @@ namespace JobAppTracker.Maui.ViewModels
             set
             {
                 _interviewDate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private TimeSpan _interviewTime;
+
+        public TimeSpan InterviewTime
+        {
+            get => _interviewTime;
+            set
+            {
+                _interviewTime = value;
                 OnPropertyChanged();
             }
         }
@@ -45,9 +58,10 @@ namespace JobAppTracker.Maui.ViewModels
 
         private async Task SaveAsync()
         {
+            var fullDateTime = InterviewDate.Date + InterviewTime;
             var interview = new Interviews
             {
-                InterviewDate = InterviewDate,
+                InterviewDate = fullDateTime,
                 Location = Location,
                 ApplicationId = ApplicationId
             };

@@ -57,7 +57,9 @@ namespace JobAppTracker.Maui.ViewModels
             EditInterviewCommand = new Command<Interviews>(async (interview) => await EditInterviewAsync());
             //CheckedOnApp
             AddCheckedCommand = new Command(async () => await AddCheckedOnAsync());
-           
+
+            //Navigation
+            NavigateBackCommand = new Command(async () => await Shell.Current.GoToAsync($"//{nameof(ApplicationsPage)}"));
         }
 
         private AppModel _selectedApplication;
@@ -120,7 +122,8 @@ namespace JobAppTracker.Maui.ViewModels
         public ICommand EditInterviewCommand { get; }
         //CheckedOnApp
         public ICommand AddCheckedCommand { get; }
-
+        //Navigation
+        public ICommand NavigateBackCommand { get; }
         public async Task LoadRelatedDataAsync()
         {
             if (SelectedApplication == null) return;
@@ -137,10 +140,18 @@ namespace JobAppTracker.Maui.ViewModels
             PrepNotes = prep.FirstOrDefault(p => p.ApplicationId == SelectedApplication.Id);
 
             var interviews = await _interviewService.LoadInterviewsAsync();
-            LatestInterview = interviews
+            var filtered = interviews
                 .Where(i => i.ApplicationId == SelectedApplication.Id)
                 .OrderByDescending(i => i.InterviewDate)
-                .FirstOrDefault();
+                .ToList();
+            
+            LatestInterview = filtered.FirstOrDefault();
+
+            Interviews.Clear();
+            foreach (var interview in filtered)
+            {
+                Interviews.Add(interview);
+            }
 
             var checkedOns = await _checkedOnService.LoadCheckedOnAppsAsync();
             CheckedHistory = new ObservableCollection<CheckedOnApp>(

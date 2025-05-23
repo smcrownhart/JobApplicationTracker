@@ -27,7 +27,7 @@
                 Command="{Binding EditCommand}"
                 BackgroundColor="Grey"
                 TextColor="Black"/>
-        <Label Text="Checked On History" FontAttributes="Bold" 
+            <Label Text="Checked On History" FontAttributes="Bold" FontSize="24"
                HorizontalOptions="Center"/>
             <CollectionView ItemsSource="{Binding CheckedHistory}" >
                 <CollectionView.ItemTemplate>
@@ -40,7 +40,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <Label Text="Select Checked On Date:" FontAttributes="Bold"
+            <Label Text="Select Checked On Date:" FontAttributes="Bold" 
                    HorizontalOptions="Center"/>
             <DatePicker Date="{Binding NewCheckedOnDate}"
                         HorizontalOptions="Center"/>
@@ -52,7 +52,7 @@
                     HeightRequest="50"/>
 
 
-         <Label Text="Company Info" FontAttributes="Bold" HorizontalOptions="Center"/>
+        <Label Text="Company Info" FontAttributes="Bold" FontSize="24" HorizontalOptions="Center"/>
         <Label Text="{Binding CompanyDetails.Name}" 
                HorizontalOptions="Center"/>
         <Label Text="{Binding CompanyDetails.Website}" 
@@ -64,7 +64,7 @@
                 TextColor="Black"
                 BackgroundColor="Grey"/>
 
-        <Label Text="Company Contact Info for Application" FontAttributes="Bold" HorizontalOptions="Center"/>
+         <Label Text="Company Contact Info for Application" FontAttributes="Bold" FontSize="24" HorizontalOptions="Center"/>
         <Label Text="{Binding Contact.Name}" 
                HorizontalOptions="Center"/>
         <Label Text="{Binding Contact.Email}" 
@@ -86,12 +86,19 @@
                 TextColor="Black"
                 BackgroundColor="Grey"/>
 
-        <Label Text="Interviews" FontAttributes="Bold" HorizontalOptions="Center" />
-        <Label Text="{Binding InterviewDate, StringFormat='Interview Date: {0:MM/dd/yyyy}'}" 
-               HorizontalOptions="Center"/>
-        <Label Text="{Binding InterviewLocation}"
-               HorizontalOptions="Center"/>
-        <Button Text="Add Interview" 
+            <CollectionView ItemsSource="{Binding Interviews}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Gray" Margin="5" Padding="10">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding InterviewDate, StringFormat='Date: {0:MM/dd/yyyy h:mm tt}'}" />
+                                <Label Text="{Binding Location}" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button Text="Add Interview" 
                 Command="{Binding AddInterviewCommand}"
                 WidthRequest="200"
                 HeightRequest="50"
@@ -104,7 +111,7 @@
                 TextColor="Black"
                 BackgroundColor="Grey"/>
 
-        <Label Text="Interview Prep" FontAttributes="Bold" HorizontalOptions="Center"/>
+        <Label Text="Interview Prep" FontAttributes="Bold" FontSize="24" HorizontalOptions="Center"/>
         <Label Text="{Binding PrepNotes.PrepNotes}"
                HorizontalOptions="Center"/>
         <Label Text="{Binding PrepNotes.CompanyNotes}"
@@ -124,14 +131,36 @@
             BackgroundColor="Grey"
             TextColor="Black" />
 
-
-       <Button Text="Delete Application"
-        Command="{Binding DeleteApplicationCommand}"
+        <Button Text="Back to Applications"
+        Command="{Binding NavigateBackCommand}"
+        BackgroundColor="LightGray"
+        TextColor="Black"
         WidthRequest="200"
         HeightRequest="50"
-        BackgroundColor="DarkRed"
-        TextColor="White"
-        Margin="0,20,0,0"/>
+        HorizontalOptions="Center" />
+
+            <HorizontalStackLayout HorizontalOptions="FillAndExpand" Padding="0,20,0,0">
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="40">
+                    <Label Grid.Column="0"
+               Text="Delete Application" FontAttributes="Bold" FontSize="24"
+               VerticalOptions="Center" />
+
+                    <Button Grid.Column="1"
+                     Text="X"
+                     FontSize="14"
+                     WidthRequest="40"
+                     HeightRequest="40"
+                     CornerRadius="20"
+                     Command="{Binding DeleteApplicationCommand}"
+                     BackgroundColor="DarkRed"
+                     TextColor="White"
+                     HorizontalOptions="End"
+                     VerticalOptions="Center" />
+                </Grid>
+            </HorizontalStackLayout>
+
+
+
 
         </VerticalStackLayout>
     </ScrollView>

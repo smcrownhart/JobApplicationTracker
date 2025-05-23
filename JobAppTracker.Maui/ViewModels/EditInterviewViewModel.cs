@@ -29,7 +29,10 @@ namespace JobAppTracker.Maui.ViewModels
                 _interview = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(InterviewDate));
+                OnPropertyChanged(nameof(InterviewTime));
                 OnPropertyChanged(nameof(Location));
+
+                InterviewTime = value?.InterviewDate.TimeOfDay ?? TimeSpan.Zero;
             }
         }
 
@@ -44,6 +47,17 @@ namespace JobAppTracker.Maui.ViewModels
                     OnPropertyChanged();
                 }
                 
+            }
+        }
+
+        private TimeSpan _interviewTime;
+        public TimeSpan InterviewTime
+        {
+            get => _interviewTime;
+            set
+            {
+                _interviewTime = value;
+                OnPropertyChanged();
             }
         }
 
@@ -66,6 +80,7 @@ namespace JobAppTracker.Maui.ViewModels
         {
             if (Interview != null)
             {
+                Interview.InterviewDate = InterviewDate.Date + InterviewTime;
                 await _interviewStorageService.UpdateInterviewAsync(Interview);
                 await Shell.Current.GoToAsync("..");
             }
