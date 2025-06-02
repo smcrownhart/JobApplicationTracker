@@ -43,6 +43,12 @@ namespace JobAppTracker.Maui.ViewModels
         {
             if (Application == null) return;
 
+            if (string.IsNullOrWhiteSpace(Application.JobTitle))
+            {
+                await Shell.Current.DisplayAlert("Validation Error", "There must be a Job Title.", "OK");
+                return; 
+            }
+
             var apps = await _appService.LoadApplicationsAsync();
             var appToUpdate = apps.FirstOrDefault(a => a.Id == Application.Id);
             if (appToUpdate != null)

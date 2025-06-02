@@ -57,7 +57,7 @@ namespace JobAppTracker.Maui.Services
             }
             catch (Exception ex)
             {
-                // Handle exceptions (e.g., file write errors)
+                
                 Console.WriteLine($"Error saving applications: {ex.Message}");
             }
         }

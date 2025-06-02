@@ -67,6 +67,12 @@ namespace JobAppTracker.Maui.ViewModels
         {
             if (Company == null) return;
 
+            if (string.IsNullOrWhiteSpace(Company.Name))
+            {
+                await Shell.Current.DisplayAlert("Validation Error", "There must be a Company Name.", "OK");
+                return;
+            }
+
             await _companyService.UpdateCompanyAsync(Company);
             await Shell.Current.GoToAsync("..");
         }
