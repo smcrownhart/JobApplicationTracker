@@ -11,7 +11,7 @@
         WidthRequest="400"
         HorizontalOptions="Center"
         VerticalOptions="Start">
-            <Label Text="Application Details" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
+        <Label Text="Application Details" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
         <Label Text="{Binding SelectedApplication.JobTitle}"
                HorizontalOptions="Center"/>
         <Label Text="{Binding SelectedApplication.Status}" 
@@ -20,7 +20,24 @@
                HorizontalOptions="Center"/>
         <Label Text="{Binding SelectedApplication.JobDescription}" 
                HorizontalOptions="Center"/>
-        <Button Text="Edit Application" 
+
+            <Button Text="View Resume Used"
+                Command="{Binding ViewResumeCommand}"
+                BackgroundColor="Blue"
+                TextColor="Black"
+                WidthRequest="200"
+                HeightRequest="50"
+                HorizontalOptions="Center"/>
+            
+            <Button Text="View Cover Letter Used"
+                Command="{Binding ViewCoverLetterCommand}"
+                BackgroundColor="Indigo"
+                TextColor="Black"
+                WidthRequest="200"
+                HeightRequest="50"
+                HorizontalOptions="Center"/>
+            
+            <Button Text="Edit Application" 
                WidthRequest="200"
                 HeightRequest="50"
                 Margin="10"

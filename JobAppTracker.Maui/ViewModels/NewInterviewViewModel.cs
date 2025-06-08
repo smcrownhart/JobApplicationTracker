@@ -9,13 +9,14 @@ namespace JobAppTracker.Maui.ViewModels
     public class NewInterviewViewModel : INotifyPropertyChanged
     {
         private readonly LocalInterviewStorageService _interviewStorageService;
-
-        public NewInterviewViewModel(LocalInterviewStorageService interviewStorageService)
+      private readonly INavigationHelper _navigationHelper;
+        public NewInterviewViewModel(LocalInterviewStorageService interviewStorageService, INavigationHelper navigationHelper)
         {
             _interviewStorageService = interviewStorageService;
             SaveCommand = new Command(async () => await SaveAsync());
             InterviewDate = DateTime.Now;
             InterviewTime = DateTime.Now.TimeOfDay;
+            _navigationHelper = navigationHelper;
         }
 
         public int ApplicationId { get; set; }
@@ -66,7 +67,7 @@ namespace JobAppTracker.Maui.ViewModels
                 ApplicationId = ApplicationId
             };
             await _interviewStorageService.AddInterviewAsync(interview);
-            await Shell.Current.GoToAsync("..");
+            await Shell.Current.GoToAsync(".."); ;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

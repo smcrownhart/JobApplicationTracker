@@ -15,8 +15,8 @@ namespace JobAppTracker.Maui.ViewModels
     {
 
         private readonly LocalCheckedOnAppStorageService _checkOnService;
-        
-        
+      private readonly INavigationHelper _navigationHelper;
+
         private CheckedOnApp _entry;
         public CheckedOnApp CheckedOnApp
         {
@@ -34,13 +34,14 @@ namespace JobAppTracker.Maui.ViewModels
         public ICommand CancelCommand { get; }
         public ICommand DeleteCommand { get; }
 
-        public CheckOnAppViewModel(LocalCheckedOnAppStorageService checkOnService)
+        public CheckOnAppViewModel(LocalCheckedOnAppStorageService checkOnService, INavigationHelper navigationHelper)
         {
             _checkOnService = checkOnService;
             CheckedOnApp = new CheckedOnApp { CheckedOnDate = DateTime.Today };
             SaveCommand = new Command(async () => await SaveAsync());
             CancelCommand = new Command(async () => await CancelAsync());
             DeleteCommand = new Command(async () => await DeleteAsync());
+            _navigationHelper = navigationHelper;
         }
 
         public void LoadCheckedOnApp(CheckedOnApp checkedOnApp, int applicationId)
@@ -60,7 +61,7 @@ namespace JobAppTracker.Maui.ViewModels
             {
                 await _checkOnService.UpdateCheckedOnAppAsync(CheckedOnApp);
             }
-            await Shell.Current.GoToAsync("..");
+            await _navigationHelper.GoToAsync("//MainPage");
         }
 
         private async Task DeleteAsync()
@@ -69,11 +70,11 @@ namespace JobAppTracker.Maui.ViewModels
             {
                 await _checkOnService.DeleteCheckedOnAppAsync(CheckedOnApp.Id);
             }
-            await Shell.Current.GoToAsync("..");
+            await _navigationHelper.GoToAsync("//MainPage");
         }
         private async Task CancelAsync()
         {
-            await Shell.Current.GoToAsync("..");
+            await _navigationHelper.GoToAsync("//MainPage");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -15,6 +15,7 @@ namespace JobAppTracker.Maui.ViewModels
     public class ApplicationViewModel : INotifyPropertyChanged
     {
         private readonly LocalApplicationStorageService _storageService;
+      private readonly INavigationHelper _navigationHelper;
         private ObservableCollection<AppModel> _filteredApplications = new();
 
         public ObservableCollection<AppModel>
@@ -54,9 +55,10 @@ namespace JobAppTracker.Maui.ViewModels
             }
         }
 
-        public ApplicationViewModel(LocalApplicationStorageService storageService)
+        public ApplicationViewModel(LocalApplicationStorageService storageService, INavigationHelper navigationHelper)
         {
             _storageService = storageService;
+            _navigationHelper = navigationHelper;
             LoadApplicationsCommand = new Command(async () => await LoadApplicationsAsync());
             
         }

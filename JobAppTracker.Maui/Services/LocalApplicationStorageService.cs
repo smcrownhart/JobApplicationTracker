@@ -42,7 +42,6 @@ namespace JobAppTracker.Maui.Services
             }
             catch (Exception ex)
             {
-                // Handle exceptions (e.g., file not found, JSON deserialization errors)
                 Console.WriteLine($"Error loading applications: {ex.Message}");
                 return new List<Application>();
             }
@@ -62,7 +61,7 @@ namespace JobAppTracker.Maui.Services
             }
         }
 
-        public async Task AddApplicationsAsync(Application app)
+        public async Task<Application> AddApplicationsAsync(Application app)
         {
             var applications = await LoadApplicationsAsync();
 
@@ -73,6 +72,8 @@ namespace JobAppTracker.Maui.Services
 
             applications.Add(app);
             await SaveApplicationsAsync(applications);
+
+            return app;
         }
 
         public async Task UpdateApplicationAsync(Application updatedApp)
@@ -89,6 +90,8 @@ namespace JobAppTracker.Maui.Services
             {
                 throw new Exception($"Application {updatedApp.Id} not found");
             }
+
+            
         }
 
         public async Task DeleteApplicationAsync(int id)

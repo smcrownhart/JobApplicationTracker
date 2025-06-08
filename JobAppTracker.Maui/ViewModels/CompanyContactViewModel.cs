@@ -14,6 +14,7 @@ namespace JobAppTracker.Maui.ViewModels
     public class CompanyContactViewModel: INotifyPropertyChanged
     {
         private readonly LocalCompanyContactStorageService _contactService;
+      private readonly INavigationHelper _navigationHelper;
 
         private CompanyContact _contact;
 
@@ -33,13 +34,14 @@ namespace JobAppTracker.Maui.ViewModels
         public ICommand DeleteCommand { get; }
         public ICommand CancelCommand { get; }
 
-        public CompanyContactViewModel(LocalCompanyContactStorageService contactService)
+        public CompanyContactViewModel(LocalCompanyContactStorageService contactService, INavigationHelper navigationHelper)
         {
             _contactService = contactService;
             Contact = new CompanyContact();
             SaveCommand = new Command(async () => await SaveAsync());
             DeleteCommand = new Command(async () => await DeleteAsync());
             CancelCommand = new Command(async () => await CancelAsync());
+            _navigationHelper = navigationHelper;
         }
 
         public void LoadContact(CompanyContact contact, int applicationId)
@@ -61,7 +63,7 @@ namespace JobAppTracker.Maui.ViewModels
                 await _contactService.UpdateContactAsync(Contact);
             }
 
-            await Shell.Current.GoToAsync("..");
+            await _navigationHelper.GoToAsync("//MainPage");
         }
 
         private async Task DeleteAsync()
@@ -75,12 +77,12 @@ namespace JobAppTracker.Maui.ViewModels
             {
                 await _contactService.DeleteContactAsync(Contact.Id);
             }
-            await Shell.Current.GoToAsync("..");
+            await _navigationHelper.GoToAsync("//MainPage");
         }
 
         private async Task CancelAsync()
         {
-            await Shell.Current.GoToAsync("..");
+            await _navigationHelper.GoToAsync("//MainPage");
         }
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = null)

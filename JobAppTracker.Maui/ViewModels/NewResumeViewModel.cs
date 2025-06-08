@@ -14,11 +14,12 @@ namespace JobAppTracker.Maui.ViewModels
     public class NewResumeViewModel : INotifyPropertyChanged
     {
         private readonly localResumeStorageService _localResumeStorageService;
-
-        public NewResumeViewModel(localResumeStorageService localResumeStorageService)
+      private readonly INavigationHelper _navigationHelper;
+        public NewResumeViewModel(localResumeStorageService localResumeStorageService, INavigationHelper navigationHelper)
         {
             _localResumeStorageService = localResumeStorageService;
             SaveCommand = new Command(async () => await SaveResumeAsync());
+            _navigationHelper = navigationHelper;
         }
 
 
@@ -51,7 +52,7 @@ namespace JobAppTracker.Maui.ViewModels
                 ApplicationId = ApplicationId 
             };
             await _localResumeStorageService.AddResumeAsync(resume);
-            await Shell.Current.GoToAsync("..");
+            await Shell.Current.GoToAsync(".."); ;
         }
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string propertyName = null) =>

@@ -10,13 +10,13 @@ namespace JobAppTracker.Maui.ViewModels
     public class NewCompanyViewModel: INotifyPropertyChanged
     {
         private readonly LocalCompanyStorageService _companyService;
-
-        public NewCompanyViewModel(LocalCompanyStorageService companyService)
+      private readonly INavigationHelper _navigationHelper;
+        public NewCompanyViewModel(LocalCompanyStorageService companyService, INavigationHelper navigationHelper)
         {
             _companyService = companyService;
             SaveCommand = new Command(async () => await SaveAsync());
             AddCompanyCommand = new Command(async () => await AddCompanyAsync());
-
+            _navigationHelper = navigationHelper;
         }
 
         private string _name;
@@ -59,7 +59,7 @@ namespace JobAppTracker.Maui.ViewModels
                 Website = Website
             };
             await _companyService.AddCompanyAsync(newCompany);
-            await Shell.Current.GoToAsync("..");
+            await Shell.Current.GoToAsync(".."); ;
         }
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string propertyName = null) =>

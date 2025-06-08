@@ -14,6 +14,7 @@ namespace JobAppTracker.Maui.ViewModels
     public class InterviewPrepViewModel : INotifyPropertyChanged
     {
         private readonly LocalInterviewPrepStorageService _prepService;
+      private readonly INavigationHelper _navigationHelper;
 
         private InterviewPrep _interviewPrep;
 
@@ -33,13 +34,14 @@ namespace JobAppTracker.Maui.ViewModels
         public ICommand CancelCommand { get; }
         public ICommand DeleteCommand { get; }
 
-        public InterviewPrepViewModel(LocalInterviewPrepStorageService prepService)
+        public InterviewPrepViewModel(LocalInterviewPrepStorageService prepService, INavigationHelper navigationHelper)
         {
             _prepService = prepService;
             InterviewPrep = new InterviewPrep();
             SaveCommand = new Command(async () => await SaveAsync());
             CancelCommand = new Command(async () => await CancelAsync());
             DeleteCommand = new Command(async () => await DeleteAsync());
+            _navigationHelper = navigationHelper;
         }
 
         public void LoadInterviewPrep(InterviewPrep interviewPrep, int applicationId)
@@ -59,7 +61,7 @@ namespace JobAppTracker.Maui.ViewModels
             {
                 await _prepService.UpdatePrepAsync(InterviewPrep);
             }
-            await Shell.Current.GoToAsync("..");
+            await _navigationHelper.GoToAsync("//MainPage");
         }
 
         private async Task DeleteAsync()
@@ -72,11 +74,11 @@ namespace JobAppTracker.Maui.ViewModels
             {
                 await _prepService.DeletePrepAsync(InterviewPrep.Id);
             }
-            await Shell.Current.GoToAsync("..");
+            await _navigationHelper.GoToAsync("//MainPage");
         }
         private async Task CancelAsync()
         {
-            await Shell.Current.GoToAsync("..");
+            await _navigationHelper.GoToAsync("//MainPage");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -11,7 +11,7 @@
     Title="JobAppTracker">
 
     <Shell.FlyoutHeader>
-        <Grid BackgroundColor="Gray" Padding="15">
+        <Grid BackgroundColor="LightGray"  Padding="15">
             <Label Text="Menu"
                    FontSize="24"
                    TextColor="Black"

@@ -25,6 +25,8 @@ namespace JobAppTracker.Maui
                 client.BaseAddress = new Uri("https://localhost:7048/api/");
             });
 
+            builder.Services.AddSingleton<INavigationHelper, NavigationHelper>();
+
             //Application
             builder.Services.AddSingleton<LocalApplicationStorageService>();
             builder.Services.AddTransient<ApplicationDeletionService>();
@@ -35,6 +37,21 @@ namespace JobAppTracker.Maui
             builder.Services.AddTransient<ApplicationDetailsPage>();
             builder.Services.AddTransient<EditApplicationPage>();
             builder.Services.AddTransient<EditApplicationViewModel>();
+
+            //Resume
+            builder.Services.AddSingleton<localResumeStorageService>();
+            builder.Services.AddTransient<ResumeViewModel>();
+            builder.Services.AddTransient<EditResumeViewModel>();
+            builder.Services.AddTransient<NewResumeViewModel>();
+            builder.Services.AddTransient<ResumePage>();
+
+            //CoverLetter
+            builder.Services.AddSingleton<localCoverLetterStorageService>();
+            builder.Services.AddTransient<CoverLetterViewModel>();
+            builder.Services.AddTransient<EditCoverLetterViewModel>();
+            builder.Services.AddTransient<NewCoverLetterViewModel>();
+            builder.Services.AddTransient<CoverLetterPage>();
+            
             //CheckedOnApp
             builder.Services.AddSingleton<LocalCheckedOnAppStorageService>();
             

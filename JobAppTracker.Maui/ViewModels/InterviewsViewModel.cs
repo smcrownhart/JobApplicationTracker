@@ -14,7 +14,7 @@ namespace JobAppTracker.Maui.ViewModels
     public class InterviewsViewModel : INotifyPropertyChanged
     {
         private readonly LocalInterviewStorageService _interviewService;
-
+      private readonly INavigationHelper _navigationHelper;
         private Interviews _interview;
 
         public Interviews Interview
@@ -32,13 +32,14 @@ namespace JobAppTracker.Maui.ViewModels
         public ICommand DeleteCommand { get; }
         public ICommand CancelCommand { get; }
 
-        public InterviewsViewModel(LocalInterviewStorageService interviewService)
+        public InterviewsViewModel(LocalInterviewStorageService interviewService, INavigationHelper navigationHelper)
         {
             _interviewService = interviewService;
             Interview = new Interviews();
             SaveCommand = new Command(async () => await SaveAsync());
             DeleteCommand = new Command(async () => await DeleteAsync());
             CancelCommand = new Command(async () => await CancelAsync());
+            _navigationHelper = navigationHelper;
         }
 
         public void LoadInterview(Interviews interview, int applicationId)
@@ -58,7 +59,7 @@ namespace JobAppTracker.Maui.ViewModels
             {
                 await _interviewService.UpdateInterviewAsync(Interview);
             }
-            await Shell.Current.GoToAsync("..");
+            await _navigationHelper.GoToAsync("//MainPage");
         }
 
         private async Task DeleteAsync()
@@ -67,11 +68,11 @@ namespace JobAppTracker.Maui.ViewModels
             {
                 await _interviewService.DeleteInterviewAsync(Interview.Id);
             }
-            await Shell.Current.GoToAsync("..");
+            await _navigationHelper.GoToAsync("//MainPage");
         }
         private async Task CancelAsync()
         {
-            await Shell.Current.GoToAsync("..");
+            await _navigationHelper.GoToAsync("//MainPage");
         }
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = null)

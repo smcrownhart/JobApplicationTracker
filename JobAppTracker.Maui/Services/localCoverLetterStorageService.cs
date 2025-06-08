@@ -37,6 +37,10 @@ namespace JobAppTracker.Maui.Services
         public async Task AddCoverLetterAsync(CoverLetter coverLetter)
         {
             var coverLetters = await GetCoverLettersAsync();
+            if (coverLetter.Id == 0)
+            {
+                coverLetter.Id = coverLetters.Count > 0 ? coverLetters.Max(cl => cl.Id) + 1 : 1;
+            }
             coverLetters.Add(coverLetter);
             await SaveCoverLettersAsync(coverLetters);
         }
@@ -49,6 +53,13 @@ namespace JobAppTracker.Maui.Services
             {
                 existingCoverLetter.letterContent = coverLetter.letterContent;
                 await SaveCoverLettersAsync(coverLetters);
+            }
+        }
+        public async Task DeleteAllCoverLettersAsync()
+        {
+            if (File.Exists(_filePath))
+            {
+                File.Delete(_filePath); // 💣 Boom. Nuke it.
             }
         }
 

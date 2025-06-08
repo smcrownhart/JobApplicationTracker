@@ -9,11 +9,12 @@ namespace JobAppTracker.Maui.ViewModels
     public class NewCoverLetterViewModel : INotifyPropertyChanged
     {
         private readonly localCoverLetterStorageService _localCoverLetterStorageService;
-
-        public NewCoverLetterViewModel(localCoverLetterStorageService localCoverLetterStorageService)
+      private readonly INavigationHelper _navigationHelper;
+        public NewCoverLetterViewModel(localCoverLetterStorageService localCoverLetterStorageService, INavigationHelper navigationHelper)
         {
             _localCoverLetterStorageService = localCoverLetterStorageService;
             SaveCommand = new Command(async () => await SaveCoverLetterAsync());
+            _navigationHelper = navigationHelper;
         }
 
         private string _coverLetterContent;
@@ -44,7 +45,7 @@ namespace JobAppTracker.Maui.ViewModels
                 ApplicationId = ApplicationId
             };
             await _localCoverLetterStorageService.AddCoverLetterAsync(coverLetter);
-            await Shell.Current.GoToAsync("..");
+            await Shell.Current.GoToAsync(".."); ;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

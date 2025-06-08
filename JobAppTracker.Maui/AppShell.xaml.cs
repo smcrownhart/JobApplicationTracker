@@ -19,8 +19,25 @@ namespace JobAppTracker.Maui
             Routing.RegisterRoute(nameof(NewInterviewPrepPage), typeof(NewInterviewPrepPage));
             Routing.RegisterRoute(nameof(EditInterviewPrepPage), typeof(EditInterviewPrepPage));
             Routing.RegisterRoute(nameof(CompaniesViewPage), typeof(CompaniesViewPage));
+            Routing.RegisterRoute(nameof(ResumePage), typeof(ResumePage));
+            Routing.RegisterRoute(nameof(CoverLetterPage), typeof(CoverLetterPage));
+            Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
+
+            Navigating += OnNavigating;
+        }
+        private void OnNavigating(object sender, ShellNavigatingEventArgs e)
+        {
+            
+            if (e.Target.Location.OriginalString == "..")
+            {
+                if (!Shell.Current.Navigation.NavigationStack.Any() || Shell.Current.Navigation.NavigationStack.Count == 1)
+                {
+                    
+                    e.Cancel();
+                    Shell.Current.GoToAsync("//MainPage");
+                }
+            }
         }
 
-        
     }
 }

@@ -38,6 +38,10 @@ namespace JobAppTracker.Maui.Services
         public async Task AddResumeAsync(Resume resume)
         {
             var resumes = await GetResumeAsync();
+            if (resume.Id == 0)
+            {
+                resume.Id = resumes.Count > 0 ? resumes.Max(r => r.Id) + 1 : 1;
+            }
             resumes.Add(resume);
             await SaveResumeAsync(resumes);
         }
@@ -50,6 +54,14 @@ namespace JobAppTracker.Maui.Services
             {
                 existingResume.resumeContent = resume.resumeContent;
                 await SaveResumeAsync(resumes);
+            }
+        }
+
+        public async Task DeleteAllResumesAsync()
+        {
+            if (File.Exists(_filePath))
+            {
+                File.Delete(_filePath); // 💣 Boom. Nuke it.
             }
         }
 

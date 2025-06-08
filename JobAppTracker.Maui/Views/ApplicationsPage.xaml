@@ -5,7 +5,7 @@
              x:Class="JobAppTracker.Maui.Views.ApplicationsPage"
              Title="Job Applications">
     <ScrollView>
-        <VerticalStackLayout Padding="15" Spacing="10" HorizontalOptions="Center">
+        <VerticalStackLayout Padding="15" Spacing="20" HorizontalOptions="Center">
             <SearchBar Placeholder="Search by Job Title or Company"
                Text="{Binding SearchText}"/>
 
@@ -21,7 +21,7 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame BorderColor="LightBlue" Padding="10" Margin="5">
-                            <StackLayout Padding="10">
+                            <StackLayout Padding="10" Spacing="10">
                                 <Label Text="{Binding JobTitle}" FontSize="16" />
                                 <Label Text="{Binding JobDescription}" FontSize="16" />
                                 <Label Text="{Binding Status}" FontSize="16" />
@@ -32,14 +32,7 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            <Button Text="Reload"
-                    Command="{Binding LoadApplicationsCommand}"
-                    Margin="10"
-                    BackgroundColor="LightGray"
-                    TextColor="Black"
-                    WidthRequest="200"
-                    HeightRequest="50"
-                    HorizontalOptions="Center" />
+            
             <Button Text="Add New Application"
                     BackgroundColor="SeaGreen"
                     TextColor="Black"
@@ -48,6 +41,16 @@
                     Clicked="OnAddApplicationButtonClicked"
                     Margin="10"
                     HorizontalOptions="Center" />
+
+            <Button Text="Reload"
+                Command="{Binding LoadApplicationsCommand}"
+                Margin="10"
+                BackgroundColor="LightGray"
+                TextColor="Black"
+                WidthRequest="200"
+                HeightRequest="50"
+                HorizontalOptions="Center" />
+
         </VerticalStackLayout>
     </ScrollView>
 

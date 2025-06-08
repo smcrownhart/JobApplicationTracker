@@ -10,15 +10,16 @@ namespace JobAppTracker.Maui.ViewModels
 {
     public class EditCompanyViewModel : INotifyPropertyChanged
     {
+      private readonly INavigationHelper _navigationHelper;
         private readonly LocalCompanyStorageService _companyService;
         private readonly LocalApplicationStorageService _appService;
-        public EditCompanyViewModel(LocalCompanyStorageService companyService, LocalApplicationStorageService appService)
+        public EditCompanyViewModel(LocalCompanyStorageService companyService, LocalApplicationStorageService appService, INavigationHelper navigationHelper)
         {
             _companyService = companyService;
             _appService = appService;
             SaveCommand = new Command(async () => await SaveAsync());
             DeleteCommand = new Command(async () => await DeleteAsync());
-
+            _navigationHelper = navigationHelper;
         }
 
         public ICommand SaveCommand { get; }
@@ -74,7 +75,7 @@ namespace JobAppTracker.Maui.ViewModels
             }
 
             await _companyService.UpdateCompanyAsync(Company);
-            await Shell.Current.GoToAsync("..");
+            await Shell.Current.GoToAsync(".."); ;
         }
 
         private async Task DeleteAsync()
@@ -88,7 +89,7 @@ namespace JobAppTracker.Maui.ViewModels
                 return;
             }
             await _companyService.DeleteCompanyAsync(Company.Id);
-            await Shell.Current.GoToAsync("..");
+            await Shell.Current.GoToAsync(".."); ;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

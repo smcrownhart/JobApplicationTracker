@@ -14,6 +14,7 @@ namespace JobAppTracker.Maui.ViewModels
     {
         private readonly LocalCompanyStorageService _companyService;
         private readonly CompanyDeletionService _deletionService;
+      private readonly INavigationHelper _navigationHelper;
 
         private ObservableCollection<Company> _companies = new();
 
@@ -28,13 +29,14 @@ namespace JobAppTracker.Maui.ViewModels
         public ICommand AddCompanyCommand { get; }
 
         public CompanyViewModel(
-            LocalCompanyStorageService companyService, CompanyDeletionService deletionService)
+            LocalCompanyStorageService companyService, CompanyDeletionService deletionService, INavigationHelper navigationHelper)
         {
             _companyService = companyService;
             _deletionService = deletionService;
             LoadCompaniesCommand = new Command(async () => await LoadCompaniesAsync());
             DeleteCompanyCommand = new Command<Company>(async (company) => await DeleteCompanyAsync(company));
             AddCompanyCommand = new Command(async () => await AddCompanyAsync());
+            _navigationHelper = navigationHelper;
         }
 
         public async Task LoadCompaniesAsync()

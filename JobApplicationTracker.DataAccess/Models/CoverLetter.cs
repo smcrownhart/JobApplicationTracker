@@ -14,6 +14,8 @@ namespace JobApplicationTracker.DataAccess.Models
         [Key]
         public int Id { get; set; }
 
+        public string Text { get; set; }
+
         [Required]
         public int ApplicationId { get; set; }
 

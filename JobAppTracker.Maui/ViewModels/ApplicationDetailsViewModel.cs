@@ -19,15 +19,21 @@ namespace JobAppTracker.Maui.ViewModels
         private readonly LocalInterviewStorageService _interviewService;
         private readonly LocalInterviewPrepStorageService _prepService;
         private readonly LocalCheckedOnAppStorageService _checkedOnService;
+        private readonly localCoverLetterStorageService _coverLetterService;
+        private readonly localResumeStorageService _resumeService;
         private readonly ApplicationDeletionService _deletionService;
+        private readonly INavigationHelper _navigationHelper;
         public ApplicationDetailsViewModel(
             LocalApplicationStorageService appService,
             LocalCompanyStorageService companyService,
             LocalCompanyContactStorageService contactService,
             LocalInterviewStorageService interviewService,
             LocalInterviewPrepStorageService prepService,
-            LocalCheckedOnAppStorageService checkedOnService
-,           ApplicationDeletionService deletionService)
+            LocalCheckedOnAppStorageService checkedOnService,
+            localCoverLetterStorageService coverLetterService,
+            localResumeStorageService resumeService,
+            ApplicationDeletionService deletionService,
+            INavigationHelper navigationHelper)
         {
             _appService = appService;
             _companyService = companyService;
@@ -35,12 +41,20 @@ namespace JobAppTracker.Maui.ViewModels
             _interviewService = interviewService;
             _prepService = prepService;
             _checkedOnService = checkedOnService;
+            _coverLetterService = coverLetterService;
+            _resumeService = resumeService;
             _deletionService = deletionService;
+            _navigationHelper = navigationHelper;
 
             //Application-New Appliation is handled elsewhere on the button on the main page
             EditCommand = new Command(async () => await EditApplicationAsync());
             DeleteApplicationCommand = new Command(async () => await DeleteApplicationAsync());
 
+            //Resume
+            ViewResumeCommand = new Command(async () => await ViewResumeAsync());
+            //Cover Letter
+            ViewCoverLetterCommand = new Command(async () => await ViewCoverLetterAsync());
+            
             //Company--New Company is handled by application page
             EditCompanyCommand = new Command(async () => await EditCompanyAsync());
 
@@ -124,6 +138,12 @@ namespace JobAppTracker.Maui.ViewModels
         public ICommand AddCheckedCommand { get; }
         //Navigation
         public ICommand NavigateBackCommand { get; }
+
+        //resume
+        public ICommand ViewResumeCommand { get; }
+
+        //cover letter
+        public ICommand ViewCoverLetterCommand { get; }
         public async Task LoadRelatedDataAsync()
         {
             if (SelectedApplication == null) return;
@@ -162,6 +182,20 @@ namespace JobAppTracker.Maui.ViewModels
             OnPropertyChanged(nameof(PrepNotes));
             OnPropertyChanged(nameof(Interviews));
             OnPropertyChanged(nameof(CheckedHistory));
+        }
+
+        private async Task ViewResumeAsync()
+        {
+            if (SelectedApplication == null) return;
+
+            await Shell.Current.GoToAsync($"{nameof(ResumePage)}?applicationId={SelectedApplication.Id}");
+        }
+
+        private async Task ViewCoverLetterAsync()
+        {
+            if (SelectedApplication == null) return;
+
+            await Shell.Current.GoToAsync($"{nameof(CoverLetterPage)}?applicationId={SelectedApplication.Id}");
         }
 
         private async Task EditApplicationAsync()
@@ -227,15 +261,13 @@ namespace JobAppTracker.Maui.ViewModels
 
         private async Task EditInterviewAsync()
         {
-           
-            if (LatestInterview == null)
+
+            if (SelectedApplication == null)
             {
-                
                 return;
             }
-            LatestInterview.Application = null;
-            var json = JsonSerializer.Serialize(LatestInterview);
-            await Shell.Current.GoToAsync($"{nameof(EditInterviewPage)}?interviewJson={Uri.EscapeDataString(json)}");
+
+            await Shell.Current.GoToAsync($"{nameof(EditInterviewPage)}?applicationId={SelectedApplication.Id}");
         }
 
         private async Task AddCheckedOnAsync()
@@ -266,7 +298,7 @@ namespace JobAppTracker.Maui.ViewModels
             if (!confirm) return;
 
             await _deletionService.DeleteApplicationAndRelatedAsync(SelectedApplication.Id);
-            await Shell.Current.GoToAsync("..");
+            await _navigationHelper.GoToAsync("//ApplicationsPage");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

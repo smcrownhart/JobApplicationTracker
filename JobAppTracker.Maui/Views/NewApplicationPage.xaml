@@ -5,8 +5,8 @@
              Title="New Application">
     <ScrollView>
         <VerticalStackLayout Padding="15" Spacing="10" HorizontalOptions="Center">
-            <Entry Placeholder="Job Title" Text="{Binding JobTitle}" />
-            <Entry Placeholder="Job Description" Text="{Binding JobDescription}" />
+            <Editor Placeholder="Job Title" Text="{Binding JobTitle}" />
+            <Editor Placeholder="Job Description" Text="{Binding JobDescription}" />
             <Picker Title="Select Status"
             ItemsSource="{Binding Statuses}"
             SelectedItem="{Binding SelectedStatus}"/>
@@ -26,13 +26,41 @@
             HeightRequest="50"
             HorizontalOptions="Center"/>
 
+            <Label Text="Resume" FontAttributes="Bold" />
+            <Editor 
+                Text="{Binding ResumeText}"
+                Placeholder="Paste or type the Resume you used here"
+                AutoSize="TextChanges"
+                HeightRequest="200" />
+
+            <Label Text="Cover Letter" FontAttributes="Bold" />
+            <Editor 
+                Text="{Binding CoverLetterText}"
+                Placeholder="Paste or type the Cover Letter you used here"
+                AutoSize="TextChanges"
+                HeightRequest="200" />
+
             <Button Text="Save"
             BackgroundColor="SeaGreen"
             TextColor="White"
             Command="{Binding SaveCommand}"
             WidthRequest="200"
             HeightRequest="50"
-            HorizontalOptions="Center"/>    
+            HorizontalOptions="Center">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="LightGray" />
+                                    <Setter Property="TextColor" Value="DarkGray" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
         </VerticalStackLayout>
     </ScrollView>
     

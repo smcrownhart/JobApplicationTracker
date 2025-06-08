@@ -45,6 +45,9 @@
      <MauiXaml Update="Views\CompaniesViewPage.xaml">
        <Generator>MSBuild:Compile</Generator>
      </MauiXaml>
+     <MauiXaml Update="Views\CoverLetterPage.xaml">
+       <Generator>MSBuild:Compile</Generator>
+     </MauiXaml>
      <MauiXaml Update="Views\EditInterviewPage.xaml">
        <Generator>MSBuild:Compile</Generator>
      </MauiXaml>
@@ -52,6 +55,9 @@
        <Generator>MSBuild:Compile</Generator>
      </MauiXaml>
      <MauiXaml Update="Views\NewCompanyPage.xaml">
+       <Generator>MSBuild:Compile</Generator>
+     </MauiXaml>
+     <MauiXaml Update="Views\ResumePage.xaml">
        <Generator>MSBuild:Compile</Generator>
      </MauiXaml>
    </ItemGroup>

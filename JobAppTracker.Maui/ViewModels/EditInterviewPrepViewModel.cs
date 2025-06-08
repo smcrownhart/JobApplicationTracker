@@ -9,11 +9,12 @@ namespace JobAppTracker.Maui.ViewModels
     public class EditInterviewPrepViewModel : INotifyPropertyChanged
     {
         private readonly LocalInterviewPrepStorageService _prepService;
-
-        public EditInterviewPrepViewModel(LocalInterviewPrepStorageService prepService)
+      private readonly INavigationHelper _navigationHelper;
+        public EditInterviewPrepViewModel(LocalInterviewPrepStorageService prepService, INavigationHelper navigationHelper)
         {
             _prepService = prepService;
             SaveCommand = new Command(async () => await SaveAsync());
+            _navigationHelper = navigationHelper;
         }
 
         private InterviewPrep _prep;
@@ -70,7 +71,7 @@ namespace JobAppTracker.Maui.ViewModels
                 await _prepService.SavePrepAsync(preps);
             }
 
-            await Shell.Current.GoToAsync("..");
+            await Shell.Current.GoToAsync(".."); ;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

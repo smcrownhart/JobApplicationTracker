@@ -12,10 +12,11 @@ namespace JobAppTracker.Maui.ViewModels
     public class EditCompanyContactViewModel : INotifyPropertyChanged
     {
         private readonly LocalCompanyContactStorageService _contactService;
-
+      private readonly INavigationHelper _navigationHelper;
         public EditCompanyContactViewModel()
         {
             _contactService = new LocalCompanyContactStorageService();
+            _navigationHelper = new NavigationHelper();
             SaveCommand = new Command(async () => await SaveAsync());
         }
 
@@ -82,7 +83,7 @@ namespace JobAppTracker.Maui.ViewModels
             if (Contact == null) return;
 
             await _contactService.UpdateContactAsync(Contact);
-            await Shell.Current.GoToAsync("..");
+            await Shell.Current.GoToAsync(".."); ;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

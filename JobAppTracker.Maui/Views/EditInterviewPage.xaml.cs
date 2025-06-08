@@ -1,10 +1,11 @@
 using JobAppTracker.Maui.ViewModels;
 using JobApplicationTracker.DataAccess.Models;
 using System.Text.Json;
+using System.Collections.ObjectModel;
 
 namespace JobAppTracker.Maui.Views;
 
-[QueryProperty(nameof(InterviewJson), "interviewJson")]
+[QueryProperty(nameof(ApplicationId), "applicationId")]
 public partial class EditInterviewPage : ContentPage
 {
 	private readonly EditInterviewViewModel _viewModel;
@@ -15,12 +16,31 @@ public partial class EditInterviewPage : ContentPage
 		BindingContext = _viewModel;
 	}
 
-    public string InterviewJson
+    private DateTime _interviewDate;
+    public DateTime InterviewDate
     {
+        get => _interviewDate;
+        set { _interviewDate = value; OnPropertyChanged(); }
+    }
+
+    private TimeSpan _interviewTime;
+    public TimeSpan InterviewTime
+    {
+        get => _interviewTime;
+        set { _interviewTime = value; OnPropertyChanged(); }
+    }
+
+    public string Location { get; set; }
+
+    public int Id { get; set; }
+    private int _applicationId;
+    public int ApplicationId
+    {
+        get => _applicationId;
         set
         {
-            var interview = JsonSerializer.Deserialize<Interviews>(Uri.UnescapeDataString(value));
-            _viewModel.Interview = interview;
+            _applicationId = value;
+            _ = _viewModel.LoadInterviewsAsync(_applicationId);
         }
     }
 }

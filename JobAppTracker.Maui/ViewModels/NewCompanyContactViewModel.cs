@@ -9,10 +9,11 @@ namespace JobAppTracker.Maui.ViewModels
     public class NewCompanyContactViewModel
     {
         private readonly LocalCompanyContactStorageService _contactService;
-
+      private readonly INavigationHelper _navigationHelper;
         public NewCompanyContactViewModel()
         {
             _contactService = new LocalCompanyContactStorageService();
+            _navigationHelper = new NavigationHelper();
             SaveCommand = new Command(async () => await SaveAsync());
         }
 

@@ -12,6 +12,21 @@
                     ItemsSource="{Binding StatusOptions}"
                     SelectedItem="{Binding Application.Status}" />
             <DatePicker Date="{Binding Application.ApplicationDate}"/>
+
+            <Label Text="Resume" FontAttributes="Bold" />
+            <Editor Placeholder="Type OR paste Resume Here..."
+                    Text="{Binding ResumeText}"
+                    AutoSize="TextChanges"
+                    HeightRequest="200" />
+
+            
+            <Label Text="Cover Letter" FontAttributes="Bold" />
+            <Editor Placeholder="Type or paste Cover Letter Here..."
+                    Text="{Binding CoverLetterText}"
+                    AutoSize="TextChanges"
+                    HeightRequest="200" />
+            
+            
             <Button Text="Save"
                     Command="{Binding SaveCommand}"
                     BackgroundColor="SeaGreen"

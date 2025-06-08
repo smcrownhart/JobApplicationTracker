@@ -4,19 +4,29 @@
              x:Class="JobAppTracker.Maui.Views.EditInterviewPage"
              Title="EditInterviewPage">
     <ScrollView>
-        <VerticalStackLayout Padding="15" Spacing="10" HorizontalOptions="Center">
-            <Label Text="Change Interview Date"/>
-            <DatePicker Date="{Binding InterviewDate}" />
-            <Label Text="Change Interview Time" />
-            <TimePicker Time="{Binding InterviewTime}"/>
-            <Entry Placeholder="Change Location" Text="{Binding Location}" />
-            <Button Text="Save Changes"
+        <VerticalStackLayout Padding="10" Spacing="10">
+            <Label Text="Edit Interview" FontAttributes="Bold" HorizontalOptions="Center" />
+            <CollectionView ItemsSource="{Binding Interviews}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Gray" Padding="10" Margin="5">
+                            <VerticalStackLayout Spacing="10">
+                                <DatePicker Date="{Binding InterviewDate}" />
+                                <TimePicker Time="{Binding InterviewTime}" />
+                                <Entry Text="{Binding Location}" Placeholder="Location" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button Text="Save All"
                 Command="{Binding SaveCommand}"
                 BackgroundColor="SeaGreen"
                 TextColor="White"
                 WidthRequest="200"
                 HeightRequest="50"
                 HorizontalOptions="Center"/>
+
         </VerticalStackLayout>
     </ScrollView>
     
