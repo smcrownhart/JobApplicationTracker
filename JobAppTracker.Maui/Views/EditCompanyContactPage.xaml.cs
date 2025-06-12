@@ -4,7 +4,7 @@ using JobAppTracker.Maui.ViewModels;
 
 namespace JobAppTracker.Maui.Views;
 
-[QueryProperty(nameof(ContactJson), "contactJson")]
+[QueryProperty(nameof(ApplicationId), "applicationId")]
 public partial class EditCompanyContactPage : ContentPage
 {
     private readonly EditCompanyContactViewModel _viewModel;
@@ -16,12 +16,17 @@ public partial class EditCompanyContactPage : ContentPage
 
     }
 
-    public string ContactJson
+    private int _applicationId;
+    public int ApplicationId
     {
+        get => _applicationId;
         set
         {
-            var contact = JsonSerializer.Deserialize<CompanyContact>(Uri.UnescapeDataString(value));
-            _viewModel.Contact = contact;
+            _applicationId = value;
+            _viewModel.ApplicationId = _applicationId;
+            _ = _viewModel.LoadContactsAsync(_applicationId);
         }
     }
+
+    
 }

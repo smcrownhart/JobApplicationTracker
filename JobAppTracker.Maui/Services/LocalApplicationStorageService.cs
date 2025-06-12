@@ -46,7 +46,11 @@ namespace JobAppTracker.Maui.Services
                 return new List<Application>();
             }
         }
-
+        public async Task<Application> GetApplicationByIdAsync(int id)
+        {
+            var apps = await LoadApplicationsAsync();
+            return apps.FirstOrDefault(a => a.Id == id);
+        }
         public async Task SaveApplicationsAsync(List<Application> applications)
         {
             try

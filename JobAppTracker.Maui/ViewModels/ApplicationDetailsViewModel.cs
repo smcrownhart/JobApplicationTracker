@@ -60,7 +60,7 @@ namespace JobAppTracker.Maui.ViewModels
 
             //Contacts
             AddContactCommand = new Command(async () => await AddContactAsync());
-            EditContactCommand = new Command(async () => await EditContactAsync());
+            EditContactCommand = new Command<CompanyContact>(async(contact) => EditContactAsync(contact));
 
             //Interview Prep
             AddPrepCommand = new Command(async () => await AddPrepAsync());
@@ -116,7 +116,7 @@ namespace JobAppTracker.Maui.ViewModels
         }
 
         public Company CompanyDetails { get; set; }
-        public CompanyContact Contact { get; set; }
+        public ObservableCollection<CompanyContact> Contacts { get; set; } = new();
         public InterviewPrep PrepNotes { get; set; }
         public ObservableCollection<Interviews> Interviews { get; set; } = new();
         public ObservableCollection<CheckedOnApp> CheckedHistory { get; set; } = new();
@@ -150,11 +150,18 @@ namespace JobAppTracker.Maui.ViewModels
 
             var companies = await _companyService.LoadCompaniesAsync();
             CompanyDetails = companies.FirstOrDefault(c => c.Id == SelectedApplication.CompanyId);
+
            
 
-            var contacts = await _contactService.LoadContactsAsync();
-            Contact = contacts.FirstOrDefault(c => c.ApplicationId == SelectedApplication.Id);
-            
+            var allcontacts = await _contactService.LoadContactsAsync();
+            var matchingContacts = allcontacts.Where(c => c.ApplicationId == SelectedApplication.Id).ToList();
+            Contacts = new ObservableCollection<CompanyContact>(matchingContacts);
+            Contacts.Clear();
+            foreach (var contact in matchingContacts)
+            {
+                Contacts.Add(contact);
+            }
+            OnPropertyChanged(nameof(Contacts));
 
             var prep = await _prepService.LoadPrepAsync();
             PrepNotes = prep.FirstOrDefault(p => p.ApplicationId == SelectedApplication.Id);
@@ -228,13 +235,13 @@ namespace JobAppTracker.Maui.ViewModels
             await Shell.Current.GoToAsync($"{nameof(NewCompanyContactPage)}?applicationId={SelectedApplication.Id}");
         }
 
-        private async Task EditContactAsync()
+        private async Task EditContactAsync(CompanyContact contact)
         {
-            if (Contact == null)
+            if (contact == null)
             {
                await Shell.Current.GoToAsync($"{nameof(NewCompanyContactPage)}?applicationId={SelectedApplication.Id}");
             }
-            var json = JsonSerializer.Serialize(Contact);
+            var json = JsonSerializer.Serialize(contact);
             await Shell.Current.GoToAsync($"{nameof(EditCompanyContactPage)}?contactJson={Uri.EscapeDataString(json)}&applicationId={SelectedApplication.Id}");
         }
         private async Task AddPrepAsync()

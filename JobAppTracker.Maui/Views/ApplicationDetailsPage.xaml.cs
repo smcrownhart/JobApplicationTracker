@@ -27,13 +27,13 @@ public partial class ApplicationDetailsPage : ContentPage
         }
     }
 
-    protected override async void OnAppearing()
-    {
-        base.OnAppearing();
+    //protected override async void OnAppearing()
+    //{
+    //    base.OnAppearing();
 
-        if (BindingContext is ApplicationDetailsViewModel vm)
-        {
-            await vm.LoadRelatedDataAsync();
-        }
-    }
+    //    if (BindingContext is ApplicationDetailsViewModel vm)
+    //    {
+    //        await vm.LoadRelatedDataAsync();
+    //    }
+    //}
 }

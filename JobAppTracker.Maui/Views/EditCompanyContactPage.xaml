@@ -2,15 +2,28 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="JobAppTracker.Maui.Views.EditCompanyContactPage"
-             Title="EditCompanyContactPage">
+             Title="Edit Company Contacts">
 
     <ScrollView>
-        <VerticalStackLayout Padding="15" Spacing="10" HorizontalOptions="Center">
-            <Label Text="Edit Company Contact" FontSize="24" FontAttributes="Bold"/>
+        <VerticalStackLayout Padding="15" Spacing="10">
+            <Label Text="Edit Company Contacts"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
 
-            <Entry Text="{Binding Name}" Placeholder="Contact Name"/>
-            <Entry Text="{Binding Email}" Placeholder="Email"/>
-            <Entry Text="{Binding Phone}" Placeholder="Phone Number"/>
+            <CollectionView ItemsSource="{Binding Contacts}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Gray" Margin="5" Padding="10">
+                            <VerticalStackLayout>
+                                <Entry Text="{Binding Name}" Placeholder="Contact Name"/>
+                                <Entry Text="{Binding Email}" Placeholder="Email"/>
+                                <Entry Text="{Binding Phone}" Placeholder="Phone"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
             <Button Text="Save Changes"
                     Command="{Binding SaveCommand}"
