@@ -32,10 +32,12 @@ public partial class ApplicationsPage : ContentPage
     {
         if (e.CurrentSelection.FirstOrDefault() is AppModel selectedApplication)
         {
-            ((CollectionView)sender).SelectedItem = null;
+           
             Console.WriteLine($"Selected: {selectedApplication.JobTitle}");
             var json = JsonSerializer.Serialize(selectedApplication);
             await Shell.Current.GoToAsync($"{nameof(ApplicationDetailsPage)}?appJson={Uri.EscapeDataString(json)}");
         }
+
+         ((CollectionView)sender).SelectedItem = null;
     }
 }
