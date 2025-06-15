@@ -1,4 +1,6 @@
-﻿namespace JobAppTracker.Maui
+﻿using JobAppTracker.Maui.Views;
+
+namespace JobAppTracker.Maui
 {
     public partial class App : Application
     {
@@ -6,6 +8,8 @@
         {
             InitializeComponent();
             
+
+
         }
 
         protected override Window CreateWindow(IActivationState? activationState)

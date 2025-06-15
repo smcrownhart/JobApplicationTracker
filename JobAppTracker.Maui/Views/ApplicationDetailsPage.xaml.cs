@@ -19,12 +19,25 @@ public partial class ApplicationDetailsPage : ContentPage
 
     public string AppJson
     {
+        //set
+        //{
+        //    var app = JsonSerializer.Deserialize<AppModel>(Uri.UnescapeDataString(value));
+        //    _viewModel.SelectedApplication = app;
+        //    _ = _viewModel.LoadRelatedDataAsync();
+        //}
         set
         {
+            if (string.IsNullOrWhiteSpace(value))
+                return; // Prevent crash when no value is passed
+
             var app = JsonSerializer.Deserialize<AppModel>(Uri.UnescapeDataString(value));
-            _viewModel.SelectedApplication = app;
-            _ = _viewModel.LoadRelatedDataAsync();
+            if (BindingContext is ApplicationDetailsViewModel vm)
+            {
+                vm.SelectedApplication = app;
+                _ = vm.LoadRelatedDataAsync();
+            }
         }
+
     }
 
     //protected override async void OnAppearing()

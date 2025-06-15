@@ -32,12 +32,20 @@ public partial class ApplicationsPage : ContentPage
     {
         if (e.CurrentSelection.FirstOrDefault() is AppModel selectedApplication)
         {
-           
-            Console.WriteLine($"Selected: {selectedApplication.JobTitle}");
-            var json = JsonSerializer.Serialize(selectedApplication);
-            await Shell.Current.GoToAsync($"{nameof(ApplicationDetailsPage)}?appJson={Uri.EscapeDataString(json)}");
+            if(selectedApplication.JobTitle == "No applications found")
+            {
+                await Shell.Current.GoToAsync("//ApplicationsPage");
+                return;
+            }
+
+            var viewModel = BindingContext as ApplicationViewModel;
+            if (viewModel != null && viewModel.FilteredApplications.Contains(selectedApplication))
+            {
+                var json = JsonSerializer.Serialize(selectedApplication);
+                await Shell.Current.GoToAsync($"{nameof(ApplicationDetailsPage)}?appJson={Uri.EscapeDataString(json)}");
+            }
         }
 
-         ((CollectionView)sender).SelectedItem = null;
+        ((CollectionView)sender).SelectedItem = null;
     }
 }

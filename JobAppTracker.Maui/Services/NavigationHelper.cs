@@ -12,19 +12,32 @@ namespace JobAppTracker.Maui.Services
     {
         public async Task GoBackOrHomeAsync()
         {
-            if (Shell.Current.Navigation.NavigationStack.Count > 1)
+            try
             {
-                await Shell.Current.GoToAsync("..");
+                var stack = Shell.Current.Navigation.NavigationStack;
+                if (stack.Count > 1)
+                {
+                    await Shell.Current.GoToAsync("..");
+                }
+                else {
+                    await Shell.Current.GoToAsync("//ApplicationsPage");
+                }
             }
-            else
+            catch
             {
                 await Shell.Current.GoToAsync("//MainPage");
             }
+            
         }
 
         public async Task GoToAsync(string route)
         {
-            await Shell.Current.GoToAsync(route);
+            if(!string.IsNullOrWhiteSpace(route))
+            {
+                await Shell.Current.GoToAsync(route);
+            }
+            
+            
         }
     }
 }

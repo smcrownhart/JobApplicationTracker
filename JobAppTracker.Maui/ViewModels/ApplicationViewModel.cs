@@ -111,6 +111,10 @@ namespace JobAppTracker.Maui.ViewModels
                 );
 
                 FilteredApplications = new ObservableCollection<AppModel>(filtered);
+                if (FilteredApplications.Count == 0)
+                {
+                    FilteredApplications.Add(new AppModel { JobTitle = "No applications found" });
+                }
             }
         }
 

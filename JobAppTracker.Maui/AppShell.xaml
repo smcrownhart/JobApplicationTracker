@@ -4,11 +4,22 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:JobAppTracker.Maui.Views"
-    Shell.FlyoutBackgroundColor="Gray"
+    Shell.FlyoutBackgroundColor="Black"
     Shell.TitleColor="Black"
-    Shell.BackgroundColor="Gray"
+    Shell.BackgroundColor="Black"
     Shell.ForegroundColor="LightGray"
     Title="JobAppTracker">
+
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid Padding="10">
+                <Label Text="{Binding Title}"
+                       TextColor="White"
+                       FontSize="16" />
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
 
     <Shell.FlyoutHeader>
         <Grid BackgroundColor="LightGray"  Padding="15">
@@ -21,19 +32,32 @@
     </Shell.FlyoutHeader>
 
     <FlyoutItem Title="Home" Route="MainPage">
-        <ShellContent ContentTemplate="{DataTemplate views:MainPage}" />
+        <ShellContent Title="Home" 
+            ContentTemplate="{DataTemplate views:MainPage}"
+            Route="MainPage"/>
     </FlyoutItem>
 
-    <FlyoutItem Title="Applications" Route="ApplicationsPage">
-        <ShellContent ContentTemplate="{DataTemplate views:ApplicationsPage}" />
+    <FlyoutItem Title="My Applications" Route="applications">
+        <ShellContent Title="My Applications" Route="ApplicationsPage" ContentTemplate="{DataTemplate views:ApplicationsPage}" />
+        <!--<ShellContent Title="New Applications" Route="NewApplicationPage" ContentTemplate="{DataTemplate views:NewApplicationPage}" />
+        <ShellContent Title="Application Details" Route="ApplicationDetailsPage" ContentTemplate="{DataTemplate views:ApplicationDetailsPage}" />
+        <ShellContent Title="Edit Applications" Route="EditApplicationPage" ContentTemplate="{DataTemplate views:EditApplicationPage}" />
+        <ShellContent Title="Resume" Route="ResumePage" ContentTemplate="{DataTemplate views:ResumePage}" />
+        <ShellContent Title="CoverLetter" Route="CoverLetterPage" ContentTemplate="{DataTemplate views:CoverLetterPage}" />-->
     </FlyoutItem>
 
-    <FlyoutItem Title="Companies" Route="CompaniesPage">
-        <ShellContent ContentTemplate="{DataTemplate views:CompaniesViewPage}" />
+    <FlyoutItem Title="Companies Applied At" Route="companies">
+        <ShellContent Title="Companies" Route="CompaniesViewPage" ContentTemplate="{DataTemplate views:CompaniesViewPage}" />
+        <!--<ShellContent Title="Edit Companies" Route="EditCompanyPage" ContentTemplate="{DataTemplate views:EditComapnyPage}" />
+            <ShellContent Title="New Companies" Route="NewCompanyPage" ContentTemplate="{DataTemplate views:NewCompanyPage}" />-->
     </FlyoutItem>
 
-    <FlyoutItem Title="Add Application" Route="NewApplicationPage">
-        <ShellContent ContentTemplate="{DataTemplate views:NewApplicationPage}" />
-    </FlyoutItem>
+    <MenuItem 
+        Text="Exit"
+        Clicked="OnExitClicked"
+        IconImageSource="exit_icon.png"  
+        IsDestructive="True" />
+        
+   
 
 </Shell>

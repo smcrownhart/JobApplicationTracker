@@ -9,7 +9,7 @@ namespace JobAppTracker.Maui.ViewModels
     public class CoverLetterViewModel : INotifyPropertyChanged
     {
         private readonly localCoverLetterStorageService _coverLetterStorageService;
-      private readonly INavigationHelper _navigationHelper; 
+        private readonly INavigationHelper _navigationHelper; 
         private string _text;
 
         public string Text
@@ -29,10 +29,13 @@ namespace JobAppTracker.Maui.ViewModels
             _coverLetterStorageService = coverLetterService;
             CopyCommand = new Command(async () => await CopyToClipboardAsync());
             _navigationHelper = navigationHelper;
+            NavigateBackToDetailsCommand = new Command(async () => await Shell.Current.GoToAsync($"//applications/ApplicationDetailsPage"));
+            NavigateBackToApplicationsCommand = new Command(async () => await Shell.Current.GoToAsync($"//applications/ApplicationsPage"));
         }
 
         public ICommand CopyCommand { get; }
-
+        public ICommand NavigateBackToDetailsCommand { get; }
+        public ICommand NavigateBackToApplicationsCommand { get; }
         public async Task LoadCoverLetterAsync(int applicationId)
         {
             var coverLetters = await _coverLetterStorageService.GetCoverLettersAsync();

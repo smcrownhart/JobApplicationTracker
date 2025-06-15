@@ -27,10 +27,23 @@ namespace JobAppTracker.Maui.ViewModels
             _resumeStorageService = resumeStorageService;
             CopyCommand = new Command(async () => await CopyToClipboardAsync());
             _navigationHelper = navigationHelper;
+
+            try
+            {
+                NavigateBackToDetailsCommand = new Command(async () => await Shell.Current.GoToAsync($"//applications/ApplicationDetailsPage"));
+            }
+            catch(Exception ex)
+            {
+                
+                Console.WriteLine($"Error initializing ResumeViewModel: {ex.Message}");
+            }
+            
+            NavigateBackToApplicationsCommand = new Command(async () => await Shell.Current.GoToAsync($"//applications/ApplicationsPage"));
         }
 
         public ICommand CopyCommand { get; }
-
+        public ICommand NavigateBackToDetailsCommand { get; }
+        public ICommand NavigateBackToApplicationsCommand { get; }
         public async Task LoadResumeAsync(int applicationId)
         {
             var resumes = await _resumeStorageService.GetResumeAsync();

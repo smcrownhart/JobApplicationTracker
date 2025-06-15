@@ -20,7 +20,27 @@
                 WidthRequest="200"
                 HeightRequest="50"
                 HorizontalOptions="Center"/>
-            
+
+            <Button
+                Text="Back to Application Details"
+                Command="{Binding NavigateBackToDetailsCommand}"
+                BackgroundColor="LightBlue"
+                TextColor="Black"
+                Margin="10"
+                WidthRequest="200"
+                HeightRequest="50"
+                HorizontalOptions="Center"/>
+
+            <Button
+                Text="Back to Applications List"
+                Command="{Binding NavigateBackToApplicationsCommand}"
+                BackgroundColor="LightBlue"
+                TextColor="Black"
+                Margin="10"
+                WidthRequest="200"
+                HeightRequest="50"
+                HorizontalOptions="Center"/>
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

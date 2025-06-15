@@ -77,7 +77,7 @@ namespace JobAppTracker.Maui.ViewModels
             {
                 _selectedStatus = value;
                 OnPropertyChanged();
-                TriggerValidation();
+                
             }
         }
         private string _resumeText;
@@ -88,7 +88,7 @@ namespace JobAppTracker.Maui.ViewModels
             {
                 _resumeText = value;
                 OnPropertyChanged();
-                TriggerValidation();
+                
             }
         }
 
@@ -100,7 +100,7 @@ namespace JobAppTracker.Maui.ViewModels
             {
                 _coverLetterText = value;
                 OnPropertyChanged();
-                TriggerValidation();
+                
             }
         }
 
@@ -119,6 +119,7 @@ namespace JobAppTracker.Maui.ViewModels
             SaveCommand = new Command(async () => await SaveAsync(), () => CanSave);
             AddCompanyCommand = new Command(async () => await AddCompanyAsync());
             _navigationHelper = navigationHelper;
+            SelectedStatus = "Applied";
         }
 
         public async Task LoadCompaniesAsync()
