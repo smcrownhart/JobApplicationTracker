@@ -22,7 +22,7 @@ namespace JobAppTracker.Maui.ViewModels
         private readonly localCoverLetterStorageService _coverLetterService;
         private readonly localResumeStorageService _resumeService;
         private readonly ApplicationDeletionService _deletionService;
-        private readonly INavigationHelper _navigationHelper;
+        private readonly INavigationHelper _navigationHelper;//This had help chatgpt
         public ApplicationDetailsViewModel(
             LocalApplicationStorageService appService,
             LocalCompanyStorageService companyService,
